@@ -1,28 +1,32 @@
-<!--
-  Generated template for the LoginPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>login</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
+<script>
+  
+</script>
 <ion-content padding>
-  <button ion-button block color="light" (click)="createAccount()">
-    Criar conta
-  </button>
+  <div id="topo">
+    <img id="logo" src="assets/imgs/logos/nfl.png">
+  </div>
+  <form #form="ngForm" novalidate>
+    <ion-item>
+      <ion-label floating>Username/E-mail</ion-label>
+      <ion-input type="text" name="email" [(ngModel)]="userEmail" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Senha</ion-label>
+      <ion-input type="password" name="password" [(ngModel)]="password" required></ion-input>
+    </ion-item>
+
+    <button ion-button block color="primary" [disabled]="!form.form.valid" (click)="autenticaLogin()">
+      Entrar
+    </button>
+
+  </form>
 
   <p text-center>Ou</p>
 
-  <button ion-button block (click)="signInWithEmailPage()">
+  <!--<button ion-button block (click)="signInWithEmailPage()">
     Entrar com e-mail e senha
-  </button>
+  </button>-->
 
   <button ion-button block icon-left color="danger" margin-top (click)="signInWithGoogle()">
     <ion-icon name="logo-google"></ion-icon>
@@ -34,8 +38,8 @@
     Entrar com o Facebook
   </button>
 
-  <button ion-button block icon-left color="twitter" margin-top (click)="signInWithTwitter()">
-    <ion-icon name="logo-twitter"></ion-icon>
-    Entrar com o Twitter
+  <button ion-button block color="light" margin-top (click)="createAccount()">
+    Criar conta
   </button>
+
 </ion-content>
