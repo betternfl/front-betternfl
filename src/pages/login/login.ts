@@ -19,19 +19,19 @@ import { HomePage } from '../home/home';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  public userEmail:string;
-  public password:string;
+  public userEmail: string;
+  public password: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController) {
   }
 
-  autenticaLogin(){
-    if(this.userEmail == "abc" && this.password == "123") {  
+  autenticaLogin() {
+    if (this.userEmail == "abc" && this.password == "123") {
       alert("QUE HOMEM");
       this.navCtrl.push(TabsPage);
-   } else {
-    alert("ERROUUUUU");
-   }
+    } else {
+      alert("ERROUUUUU");
+    }
   }
 
   createAccount() {
@@ -44,12 +44,12 @@ export class LoginPage {
 
   signInWithGoogle() {
     this.toastCtrl.create({ duration: 3000, position: 'bottom', message: 'Google' })
-    .present();  
+      .present();
   }
 
-  signInWithFacebook(){
+  signInWithFacebook() {
     this.toastCtrl.create({ duration: 3000, position: 'bottom', message: 'Facebook' })
-    .present();
+      .present();
   }
 
 }

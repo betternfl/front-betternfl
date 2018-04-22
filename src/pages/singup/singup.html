@@ -18,7 +18,7 @@
   <form #form="ngForm" novalidate>
 
     <ion-item>
-      <ion-label floating>Usarname</ion-label>
+      <ion-label floating>Username</ion-label>
       <ion-input type="text" name="username" [(ngModel)]="username" required></ion-input>
     </ion-item>
 
@@ -66,9 +66,9 @@
           <ion-option value="PHI">Philadelphia Eagles</ion-option>
           <ion-option value="PIT">Pittsburgh Steelers</ion-option>
           <ion-option value="SEA">Seattle Seahawks</ion-option>
-          <ion-option value="SF" data-image="../../assets/imgs/logos/sanFransisco49ers.png">
-            <img id="logoOpt"src="assets/imgs/logos/sanFransisco49ers.png">
-            San Francisco 49ers
+          <ion-option value="SF">
+            <ion-img width="80" height="80" ng-src="assets/imgs/logos/sanFransisco49ers.png"></ion-img>
+            <img id="logoOpt" src="assets/imgs/logos/sanFransisco49ers.png"> San Francisco 49ers
           </ion-option>
           <ion-option value="BUC">Tampa Bay Buccaneers</ion-option>
           <ion-option value="TEN">Tennessee Titans</ion-option>
