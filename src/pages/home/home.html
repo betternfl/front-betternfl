@@ -9,7 +9,7 @@
       <ion-item detail-none (click)="expandItem(time)" ion-item *ngFor="let time of times"
        class="" type="item-text-wrap">
         <h2>{{time.nomeTime}}</h2>
-        <expandable>
+        <expandable [expanded]= "time.expanded">
           <div>
             <p>{{time.nomeEstadio}}</p>
           </div>
