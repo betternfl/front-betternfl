@@ -11,7 +11,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPageModule } from '../pages/login/login.module';
 import { SingupPageModule } from '../pages/singup/singup.module';
 import { SinginwithemailPageModule } from '../pages/singinwithemail/singinwithemail.module';
-import { ExpandableComponent } from '../components/expandable/expandable';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   declarations: [
@@ -20,14 +20,14 @@ import { ExpandableComponent } from '../components/expandable/expandable';
     ContactPage,
     HomePage,
     TabsPage,
-    ExpandableComponent,
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     LoginPageModule,
     SingupPageModule,
-    SinginwithemailPageModule
+    SinginwithemailPageModule,
+    ComponentsModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
