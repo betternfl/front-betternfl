@@ -9,17 +9,13 @@
       <ion-item detail-none (click)="expandItem(time)" ion-item *ngFor="let time of times"
        class="" type="item-text-wrap">
         <h2>{{time.nomeTime}}</h2>
-        <expandable [expanded]="time.expanded">
+        <expandable>
           <div>
             <p>{{time.nomeEstadio}}</p>
           </div>
         </expandable>
         <button ion-button clear icon-only item-end (click)="favoritaTime(time)">
           <ion-icon [name]="time.favorito ? 'thumbs-up' : 'thumbs-down'">
-          </ion-icon>
-        </button>
-        <button ion-button clear icon-only item-end>
-          <ion-icon [name]="!time.expanded ? 'arrow-down' : 'arrow-up'">
           </ion-icon>
         </button>
       </ion-item>

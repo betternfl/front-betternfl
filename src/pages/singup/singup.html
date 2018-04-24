@@ -1,10 +1,3 @@
-<!--
-  Generated template for the SingupPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-
 <ion-header>
 
   <ion-navbar>
@@ -34,49 +27,23 @@
 
     <br/>
 
-    <ion-list>
-      <ion-item>
-        <ion-label>Time Favorito</ion-label>
-        <ion-select interface="action-sheet">
-          <ion-option value="ARI">Arizona Cardinals</ion-option>
-          <ion-option value="ATL">Atlanta Falcons</ion-option>
-          <ion-option value="BAL">Baltimore Ravens</ion-option>
-          <ion-option value="BUF">Buffalo Bills</ion-option>
-          <ion-option value="CAR">Carolina Panthers</ion-option>
-          <ion-option value="CHI">Chicago Bears</ion-option>
-          <ion-option value="CIN">Cincinnati Bengals</ion-option>
-          <ion-option value="CLE">Cleveland Browns</ion-option>
-          <ion-option value="DAL">Dallas Cowboys</ion-option>
-          <ion-option value="DEN">Denver Broncos</ion-option>
-          <ion-option value="DET">Detroit Lions</ion-option>
-          <ion-option value="GB">Green Bay Packers</ion-option>
-          <ion-option value="HOU">Houston Texans</ion-option>
-          <ion-option value="IND">Indianapolis Colts</ion-option>
-          <ion-option value="JAX">Jacksonville Jaguars</ion-option>
-          <ion-option value="KC">Kansas City Chiefs</ion-option>
-          <ion-option value="LAC">Los Angeles Chargers</ion-option>
-          <ion-option value="LA">Los Angeles Rams</ion-option>
-          <ion-option value="MIA">Miami Dolphins</ion-option>
-          <ion-option value="MIN">Minnesota Vikings</ion-option>
-          <ion-option value="NE">New England Patriots</ion-option>
-          <ion-option value="NO">New Orleans Saints</ion-option>
-          <ion-option value="NYG">New York Giants</ion-option>
-          <ion-option value="NYJ">New York Jets</ion-option>
-          <ion-option value="OAK">Oakland Raiders</ion-option>
-          <ion-option value="PHI">Philadelphia Eagles</ion-option>
-          <ion-option value="PIT">Pittsburgh Steelers</ion-option>
-          <ion-option value="SEA">Seattle Seahawks</ion-option>
-          <ion-option value="SF">
-            <ion-img width="80" height="80" ng-src="assets/imgs/logos/sanFransisco49ers.png"></ion-img>
-            <img id="logoOpt" src="assets/imgs/logos/sanFransisco49ers.png"> San Francisco 49ers
-          </ion-option>
-          <ion-option value="BUC">Tampa Bay Buccaneers</ion-option>
-          <ion-option value="TEN">Tennessee Titans</ion-option>
-          <ion-option value="WAS">Washington Redskins</ion-option>
-        </ion-select>
+    <ion-list no-lines>
+      <ion-item detail-none (click)="expandItem(time)" ion-item *ngFor="let time of times" class="" type="item-text-wrap">
+        <ion-thumbnail item-start>
+          <img [src]="time.foto">
+        </ion-thumbnail>
+        <h2>{{time.nomeTime}}</h2>
+        <expandable [expanded]="time.expanded">
+          <div>
+            <p>{{time.nomeEstadio}}</p>
+          </div>
+        </expandable>
+        <button ion-button clear icon-only item-end (click)="favoritaTime(time)">
+          <ion-icon [name]="time.favorito ? 'thumbs-up' : 'thumbs-down'">
+          </ion-icon>
+        </button>
       </ion-item>
     </ion-list>
-
     <button ion-button block color="primary" [disabled]="!form.form.valid" (click)="createAccount()">
       Criar conta
     </button>

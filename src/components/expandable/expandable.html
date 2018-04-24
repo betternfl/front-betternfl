@@ -1,4 +1,8 @@
 <div #expandWrapper class='expand-wrapper' [class.collapsed]="!expanded">
   <ng-content>
   </ng-content>
+  <button ion-button clear icon-only item-end>
+    <ion-icon [name]="!expanded ? 'arrow-down' : 'arrow-up'">
+    </ion-icon>
+  </button>
 </div>
