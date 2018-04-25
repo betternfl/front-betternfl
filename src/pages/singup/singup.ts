@@ -8,9 +8,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'singup.html',
 })
 export class SingupPage {
+  private fotoFav: string = "";
   private username: string;
   private email: string;
   private password: string;
+  private timeFav: string = "";
+  private div: string = "";
   times: any = [];
   fav = false;
   constructor(public navCtrl: NavController) {
@@ -229,21 +232,28 @@ export class SingupPage {
   }
 
   favoritaTime(time) {
-    this.times.map((listItem) => {
-      if (time == listItem) {
-        listItem.favorito = !listItem.favorito;
-      } else {
-        listItem.favorito = false;
-      }
-      return listItem;
-    });
+    if (time.nomeTime == this.timeFav) {
+      this.timeFav = "";
+      this.fotoFav = "";
+    } else {
+      this.times.map((listItem) => {
+        if (time == listItem) {
+          listItem.favorito = !listItem.favorito;
+          this.timeFav = listItem.nomeTime;
+          this.fotoFav = listItem.foto;
+        } else {
+          listItem.favorito = false;
+        }
+        return listItem;
+      });
+    }
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad SingupPage');
   }
 
   createAccount() {
-    alert(this.username + "\n" + this.email);
+    alert(this.username + "\n" + this.email + "\n" + this.timeFav);
     this.navCtrl.popToRoot();
   }
 

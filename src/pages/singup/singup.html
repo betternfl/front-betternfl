@@ -7,7 +7,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
   <form #form="ngForm" novalidate>
 
     <ion-item>
@@ -27,26 +27,25 @@
 
     <br/>
 
-    <ion-list no-lines>
+    <ion-list contentWidth="100" no-lines>
       <ion-item detail-none (click)="expandFav()">
         <h2>Time Favorito</h2>
-        <!--<button ion-button clear icon-only item-end>
-          <ion-icon [name]="!expanded ? 'arrow-down' : 'arrow-up'">
-          </ion-icon>
-        </button>-->
         <expandable [expanded]="fav">
-          <ion-item ion-item *ngFor="let time of times" class="" type="item-text-wrap">
-            <ion-thumbnail item-start>
-              <img [src]="time.foto">
+          <ion-item  ion-item *ngFor="let time of times" (click)="favoritaTime(time)" class="" type="item-text-wrap">
+            <ion-thumbnail style="min-width:auto; min-height:auto;" item-start>
+              <img style="width:40px; height:auto" [src]="time.foto">
             </ion-thumbnail>
             <h2>{{time.nomeTime}}</h2>
-            <button ion-button clear icon-only item-end (click)="favoritaTime(time)">
-              <ion-icon [name]="time.favorito ? 'thumbs-up' : 'thumbs-down'">
-              </ion-icon>
-            </button>
           </ion-item>
         </expandable>
       </ion-item>
+      <ion-item>
+        <ion-thumbnail style="min-width:auto; min-height:auto;" item-start>
+          <img style="width:40px; height:auto" [src]="fotoFav">
+        </ion-thumbnail>
+        <h2>{{timeFav}}</h2>
+      </ion-item>
+
     </ion-list>
     <button ion-button block color="primary" [disabled]="!form.form.valid" (click)="createAccount()">
       Criar conta
