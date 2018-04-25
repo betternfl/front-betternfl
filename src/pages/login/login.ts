@@ -27,10 +27,9 @@ export class LoginPage {
 
   autenticaLogin() {
     if (this.userEmail == "abc" && this.password == "123") {
-      alert("QUE HOMEM");
       this.navCtrl.push(TabsPage);
     } else {
-      alert("ERROUUUUU");
+      alert("User/Senha Inválida");
     }
   }
 

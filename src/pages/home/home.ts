@@ -6,42 +6,23 @@ import { NavController, NavParams } from 'ionic-angular';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  times: any = [];
+  teste: boolean = false;
+  exibeApostados = false;
+  apostados: boolean = false;
+  naoApostados: boolean = false;
+  jogos: any = [];
   constructor(public navCtrl: NavController) {
-    //O JSON DE TIMES VAI VIR DESSE JEITO ATÉ VOCE PEDIR QUE SEJA DIFERENTE
-    this.times = [
-      {
-        nomeTime: "Seattle Seahawks",
-        nomeEstadio: "CenturyLink Field",
-        favorito: true,
-        expanded: false
-      }, {
-        nomeTime: "San Francisco 49ers",
-        nomeEstadio: "Levi's Stadium",
-        favorito: false,
-        expanded: false
-      },
-    ];
-  }
-  expandItem(time) {
-    this.times.map((listItem) => {
-      if (time == listItem) {
-        listItem.expanded = !listItem.expanded;
-      } else {
-        listItem.expanded = false;
-      }
-      return listItem;
-    });
+
   }
 
-  favoritaTime(time) {
-    this.times.map((listItem) => {
-      if (time == listItem) {
-        listItem.favorito = !listItem.favorito;
-      } else {
-        listItem.favorito = false;
-      }
-      return listItem;
-    });
+  expandApostados() {
+    this.apostados = !this.apostados;
   }
+  expandNaoApostados() {
+    this.naoApostados = !this.naoApostados;
+  }
+  expandTeste() {
+    this.teste = !this.teste;
+  }
+
 }
