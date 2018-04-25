@@ -6,22 +6,21 @@
 
 <ion-content contentWidth="100">
   <ion-list contentWidth="100" no-lines>
-    <ion-item detail-none>
-      <div (click)="expandApostados()">
+    <ion-item detail-none (click)="expandApostados()">
+      <div>
         <h2>Jogos Apostados</h2>
-        <button>
-          <ion-icon name="arrow-down"></ion-icon>
-        </button>
       </div>
       <expandable [expanded]="apostados">
         <!-- ngFor para percorrer jogos da rodada-->
-        <ion-item detail-none (click)="expandTeste()">
-          <h2>NE Vs GB</h2>
-          <expandable [expanded]="teste">
-            <ion-item>
-              <h2>teste</h2>
-            </ion-item>
-          </expandable>
+        <ion-item detail-none (click)="expandJogos()">
+          <h2>NE x GB</h2>
+          <div>
+            <expandable [expanded]="exibeDetalhe">
+              <ion-item>
+                <h2>Jogo</h2>
+              </ion-item>
+            </expandable>
+          </div>
         </ion-item>
       </expandable>
     </ion-item>

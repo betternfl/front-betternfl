@@ -1,28 +1,33 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { getTypeNameForDebugging } from '@angular/common/src/directives/ng_for_of';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  teste: boolean = false;
-  exibeApostados = false;
+  exibeDetalhe: boolean = true;
+  jogosApostados: any = [0];
+  temJogo: boolean = false;
   apostados: boolean = false;
   naoApostados: boolean = false;
-  jogos: any = [];
   constructor(public navCtrl: NavController) {
-
+    if(this.jogosApostados.length > 0){
+      this.temJogo = true;
+    }
   }
 
   expandApostados() {
-    this.apostados = !this.apostados;
+    if(this.temJogo && this.exibeDetalhe){
+      this.apostados = true;
+    }
   }
   expandNaoApostados() {
+    if(!this.temJogo)
     this.naoApostados = !this.naoApostados;
   }
-  expandTeste() {
-    this.teste = !this.teste;
+  expandJogos() {
+    this.exibeDetalhe = !this.exibeDetalhe;
   }
-
 }
