@@ -5,33 +5,33 @@
 </ion-header>
 
 <ion-content contentWidth="100">
-  <ion-list contentWidth="100" no-lines>
-    <ion-item detail-none (click)="expandApostados()">
-      <div>
-        <h2>Jogos Apostados</h2>
-      </div>
-      <expandable [expanded]="apostados">
-        <!-- ngFor para percorrer jogos da rodada-->
-        <ion-item detail-none (click)="expandJogos()">
-          <h2>NE x GB</h2>
-          <div>
-            <expandable [expanded]="exibeDetalhe">
-              <ion-item>
-                <h2>Jogo</h2>
-              </ion-item>
-            </expandable>
-          </div>
-        </ion-item>
-      </expandable>
-    </ion-item>
 
-    <ion-item detail-none (click)="expandNaoApostados()">
-      <h2>Jogos Não Apostados</h2>
-      <expandable [expanded]="naoApostados">
-        <ion-item>
-          <h2>Jogos</h2>
-        </ion-item>
-      </expandable>
-    </ion-item>
-  </ion-list>
+  <ion-item no-lines detail-none>
+    <h2 (click)="expandNaoApostados()">Jogos Não Apostados</h2>
+    <expandable [expanded]="naoApostados">
+      <ion-item>
+        <h2 (click)="expandJogos()">TB vs CLE</h2>
+        <expandable [expanded]="exibeDetalhe">
+          <ion-item>
+            <h2>10 x 14</h2>
+          </ion-item>
+        </expandable>
+      </ion-item>
+    </expandable>
+  </ion-item>
+
+  <ion-item no-lines detail-none>
+    <h2 (click)="expandApostados()">Jogos Apostados</h2>
+    <expandable [expanded]="apostados">
+      <ion-item>
+        <h2 (click)="expandJogos()">NE vs GB</h2>
+        <expandable [expanded]="exibeDetalhe">
+          <ion-item>
+            <h2>10 x 14</h2>
+          </ion-item>
+        </expandable>
+      </ion-item>
+    </expandable>
+  </ion-item>
+
 </ion-content>
