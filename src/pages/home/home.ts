@@ -7,25 +7,22 @@ import { getTypeNameForDebugging } from '@angular/common/src/directives/ng_for_o
   templateUrl: 'home.html'
 })
 export class HomePage {
-  exibeDetalhe: boolean = true;
-  jogosApostados: any = [0];
-  temJogo: boolean = false;
+  exibeDetalhe: boolean = false;
   apostados: boolean = false;
   naoApostados: boolean = false;
+
   constructor(public navCtrl: NavController) {
-    if(this.jogosApostados.length > 0){
-      this.temJogo = true;
-    }
   }
 
   expandApostados() {
-    if(this.temJogo && this.exibeDetalhe){
-      this.apostados = true;
-    }
+    this.apostados = !this.apostados;
+    this.exibeDetalhe = false;
+    this.naoApostados = false;
   }
   expandNaoApostados() {
-    if(!this.temJogo)
     this.naoApostados = !this.naoApostados;
+    this.exibeDetalhe = false;
+    this.apostados = false;
   }
   expandJogos() {
     this.exibeDetalhe = !this.exibeDetalhe;

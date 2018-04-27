@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { SingupPage } from '../singup/singup';
-import { SinginwithemailPage } from '../singinwithemail/singinwithemail';
 import { TabsPage } from '../tabs/tabs';
 import { NgForm } from '@angular/forms';
 import { HomePage } from '../home/home';
@@ -35,10 +34,6 @@ export class LoginPage {
 
   createAccount() {
     this.navCtrl.push(SingupPage);
-  }
-
-  signInWithEmailPage() {
-    this.navCtrl.push(SinginwithemailPage);
   }
 
   signInWithGoogle() {

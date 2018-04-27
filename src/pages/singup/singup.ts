@@ -225,10 +225,7 @@ export class SingupPage {
   }
 
   expandFav() {
-    if (this.fav == false) {
-      this.fav = true
-    } else
-      this.fav = false
+    this.fav = !this.fav;
   }
 
   favoritaTime(time) {
@@ -247,9 +244,6 @@ export class SingupPage {
         return listItem;
       });
     }
-  }
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SingupPage');
   }
 
   createAccount() {

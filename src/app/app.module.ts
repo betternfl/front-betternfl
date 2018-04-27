@@ -9,7 +9,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPageModule } from '../pages/login/login.module';
 import { SingupPageModule } from '../pages/singup/singup.module';
-import { SinginwithemailPageModule } from '../pages/singinwithemail/singinwithemail.module';
 import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
@@ -24,7 +23,6 @@ import { ComponentsModule } from '../components/components.module';
     IonicModule.forRoot(MyApp),
     LoginPageModule,
     SingupPageModule,
-    SinginwithemailPageModule,
     ComponentsModule,
   ],
   bootstrap: [IonicApp],
