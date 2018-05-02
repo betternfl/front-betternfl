@@ -10,6 +10,11 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPageModule } from '../pages/login/login.module';
 import { SingupPageModule } from '../pages/singup/singup.module';
 import { ComponentsModule } from '../components/components.module';
+import { ApiNflProvider } from '../providers/api-nfl/api-nfl';
+import { HttpModule } from '@angular/http';
+import { ConfigProvider } from '../providers/config/config';
+import { SettingsPageModule } from '../pages/settings/settings.module';
+
 
 @NgModule({
   declarations: [
@@ -24,6 +29,8 @@ import { ComponentsModule } from '../components/components.module';
     LoginPageModule,
     SingupPageModule,
     ComponentsModule,
+    HttpModule,
+    SettingsPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -36,6 +43,8 @@ import { ComponentsModule } from '../components/components.module';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ApiNflProvider,
+    ConfigProvider
   ]
 })
 export class AppModule {}
