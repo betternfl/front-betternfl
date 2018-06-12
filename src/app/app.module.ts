@@ -11,6 +11,7 @@ import { LoginPageModule } from '../pages/login/login.module';
 import { SingupPageModule } from '../pages/singup/singup.module';
 import { ComponentsModule } from '../components/components.module';
 import { ApiNflProvider } from '../providers/api-nfl/api-nfl';
+import { BetterNflService } from '../services/betternfl.service';
 import { HttpModule } from '@angular/http';
 import { ConfigProvider } from '../providers/config/config';
 import { SettingsPageModule } from '../pages/settings/settings.module';
@@ -44,7 +45,8 @@ import { SettingsPageModule } from '../pages/settings/settings.module';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ApiNflProvider,
-    ConfigProvider
+    ConfigProvider,
+    BetterNflService
   ]
 })
 export class AppModule {}
