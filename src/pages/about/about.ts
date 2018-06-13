@@ -9,7 +9,7 @@ import { BetterNflService } from '../../services/betternfl.service';
 export class AboutPage {
   private jogos:any[];
   private showCard:boolean = true;
-  private anos:any[] = [2010,2011,2012,2013,2014,2015,2016,2017,2018];
+  private anos:any[] = [2018,2017,2016,2015,2014,2013,2012,2011,2010];
   private semanas:any[] = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17];
   private ano:number;
   private semana:number;
@@ -22,17 +22,13 @@ export class AboutPage {
   
   async JogosDaSemana(ano:number, semana:number){
     console.log('Carregando Jogos da Semana');
+    this.showCard = false;
     this.jogos = await this.betterNflService.Jogos(ano, 'reg', semana);
     console.log(this.jogos);
   }
 
   mostraCard(){
-    this.showCard = true;
-  }
-
-  escondeCard(){
-    this.showCard = false;
-    this.JogosDaSemana(this.ano, this.semana);
+    this.showCard = !this.showCard;
   }
 
   logoTime(time:string){
