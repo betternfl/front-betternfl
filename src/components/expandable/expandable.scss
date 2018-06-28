@@ -5,4 +5,8 @@ expandable {
   .collapsed {
     height: 0 !important;
   }
+  .item-ios ion-thumbnail {
+    min-width: auto;
+    min-height: auto;
+  }
 }

@@ -5,23 +5,34 @@
 </ion-header>
 
 <ion-content contentWidth="100">
-    <ion-list no-lines>
-      <ion-item detail-none (click)="expandItem(time)" ion-item *ngFor="let time of times"
-       class="" type="item-text-wrap">
-        <h2>{{time.nomeTime}}</h2>
-        <expandable [expanded]="time.expanded">
-          <div>
-            <p>{{time.nomeEstadio}}</p>
-          </div>
+
+  <ion-item no-lines detail-none>
+    <h2 (click)="expandNaoApostados()">Jogos Não Apostados</h2>
+    <expandable [expanded]="naoApostados">
+      <ion-item>
+        <h2 (click)="expandJogos()">TB vs CLE</h2>
+        <expandable [expanded]="exibeDetalhe">
+          <ion-item>
+            <h2>10 x 14</h2>
+          </ion-item>
         </expandable>
-        <button ion-button clear icon-only item-end (click)="favoritaTime(time)">
-          <ion-icon [name]="time.favorito ? 'thumbs-up' : 'thumbs-down'">
-          </ion-icon>
-        </button>
-        <button ion-button clear icon-only item-end>
-          <ion-icon [name]="!time.expanded ? 'arrow-down' : 'arrow-up'">
-          </ion-icon>
-        </button>
       </ion-item>
-    </ion-list>
+    </expandable>
+  </ion-item>
+
+  <ion-item no-lines detail-none>
+    <h2 (click)="expandApostados()">Jogos Apostados</h2>
+    <expandable [expanded]="apostados">
+      <ion-item>
+        <h2 (click)="expandJogos()">NE vs GB</h2>
+        <expandable [expanded]="exibeDetalhe">
+          <ion-item>
+            <h2>10 x 14</h2>
+          </ion-item>
+        </expandable>
+      </ion-item>
+    </expandable>
+  </ion-item>
+
+  
 </ion-content>

@@ -1,11 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, Alert } from 'ionic-angular';
 import { SingupPage } from '../singup/singup';
-import { SinginwithemailPage } from '../singinwithemail/singinwithemail';
 import { TabsPage } from '../tabs/tabs';
 import { NgForm } from '@angular/forms';
 import { HomePage } from '../home/home';
-
+import { ConfigProvider } from '../../providers/config/config';
 /**
  * Generated class for the LoginPage page.
  *
@@ -17,29 +16,37 @@ import { HomePage } from '../home/home';
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
+  providers: [
+    ConfigProvider
+  ]
 })
 export class LoginPage {
   public userEmail: string;
   public password: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private toastCtrl: ToastController,
+    private ConfigProvider: ConfigProvider) {
   }
 
   autenticaLogin() {
-    if (this.userEmail == "abc" && this.password == "123") {
-      alert("QUE HOMEM");
-      this.navCtrl.push(TabsPage);
-    } else {
-      alert("ERROUUUUU");
+    this.ConfigProvider.signIn(this.userEmail, this.password);
+    let status = this.ConfigProvider.getConfigData();
+    if (status != null) {
+      const lst_status = JSON.parse(status);
+      if (!lst_status.logado)
+        alert("Usuario ou Senha Invalida");
+      else
+        this.navCtrl.push(TabsPage);
     }
+
   }
+
 
   createAccount() {
     this.navCtrl.push(SingupPage);
-  }
-
-  signInWithEmailPage() {
-    this.navCtrl.push(SinginwithemailPage);
   }
 
   signInWithGoogle() {

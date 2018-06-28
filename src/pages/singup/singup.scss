@@ -1,6 +1,12 @@
-page-singup {
-    #logoOpt {
-        width: 50px;
-        height: 50px;
+.ios, .md {
+    page-signup {
+        button {
+            align-items: baseline;
+        }
+        img {
+            align-items: baseline;
+            width: 20px;
+            height: 20px;
+        }
     }
 }
