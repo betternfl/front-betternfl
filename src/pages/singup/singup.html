@@ -33,7 +33,7 @@
         <expandable [expanded]="fav">
           <ion-item  ion-item *ngFor="let time of times" (click)="favoritaTime(time)" class="" type="item-text-wrap">
             <ion-thumbnail style="min-width:auto; min-height:auto;" item-start>
-              <img style="width:40px; height:auto" [src]="time.foto">
+              <img style="width:40px; height:auto" [src]="time.caminhoLogo">
             </ion-thumbnail>
             <h2>{{time.nomeTime}}</h2>
           </ion-item>
@@ -41,9 +41,9 @@
       </ion-item>
       <ion-item>
         <ion-thumbnail style="min-width:auto; min-height:auto;" item-start>
-          <img style="width:40px; height:auto" [src]="fotoFav">
+          <img style="width:40px; height:auto" [src]="fotoFavorito">
         </ion-thumbnail>
-        <h2>{{timeFav}}</h2>
+        <h2>{{timeFavorito}}</h2>
       </ion-item>
 
     </ion-list>

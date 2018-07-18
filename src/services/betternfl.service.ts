@@ -14,4 +14,10 @@ export class BetterNflService {
             await this.http.get(API_BASE_URL + 'jogos/resultados/' + ano + '/' + tipo + '/' + semana).toPromise();
         return response.json();
     }
+
+    async Times(): Promise<any>{
+        let response = await this.http.get(API_BASE_URL + 'times').toPromise();
+
+        return response.json();
+    }
 }
