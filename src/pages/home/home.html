@@ -1,38 +1,34 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Bem-Vindo ao Better NFL</ion-title>
+    <ion-title>Better NFL</ion-title>
   </ion-navbar>
+  <ion-toolbar no-border-top>
+      <ion-scroll scrollX="true" style="width:100vw; height:50px">
+        <ion-row nowrap>
+          <div *ngFor="let semana of semanas">
+            <button ion-button small outline (click)="carregaJogosSemana(semana)" item-right>Semana {{semana}}</button>
+          </div>
+        </ion-row>
+      </ion-scroll>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content contentWidth="100">
-
-  <ion-item no-lines detail-none>
-    <h2 (click)="expandNaoApostados()">Jogos Não Apostados</h2>
-    <expandable [expanded]="naoApostados">
-      <ion-item>
-        <h2 (click)="expandJogos()">TB vs CLE</h2>
-        <expandable [expanded]="exibeDetalhe">
-          <ion-item>
-            <h2>10 x 14</h2>
-          </ion-item>
-        </expandable>
-      </ion-item>
-    </expandable>
-  </ion-item>
-
-  <ion-item no-lines detail-none>
-    <h2 (click)="expandApostados()">Jogos Apostados</h2>
-    <expandable [expanded]="apostados">
-      <ion-item>
-        <h2 (click)="expandJogos()">NE vs GB</h2>
-        <expandable [expanded]="exibeDetalhe">
-          <ion-item>
-            <h2>10 x 14</h2>
-          </ion-item>
-        </expandable>
-      </ion-item>
-    </expandable>
-  </ion-item>
-
-  
+  <h3 align="center">
+    <ion-spinner name="bubbles" *ngIf="carregouJogos == false"></ion-spinner>
+  </h3>
+  <ion-list>
+    <ion-item no-lines style="border-bottom: 1px solid lightgray" *ngFor="let jogo of jogos"  (click)="exibeDetalhe(jogo)">
+      <ion-avatar item-start style="min-width:auto; min-height:auto;">
+        <img style="width:40px; height:auto;" [src]="logoTime(jogo.timeCasa)">
+      </ion-avatar>
+      <div>
+        <h3 align="center">{{jogo.timeCasa}} vs {{jogo.timeFora}}</h3>
+        <p align="center">{{jogo.timeCasaPontuacao}} vs {{jogo.timeForaPontuacao}}</p>
+      </div>
+      <ion-avatar item-end style="min-width:auto; min-height:auto;">
+        <img style="width:40px; height:auto;" [src]="logoTime(jogo.timeFora)">
+      </ion-avatar>
+    </ion-item>
+  </ion-list>
 </ion-content>
