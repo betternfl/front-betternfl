@@ -1,36 +1,22 @@
-<ion-content contentWidth="85">
-  <div id="topo">
-    <img id="logo" src="assets/imgs/logos/nfl.png">
-  </div>
-  <form #form="ngForm" novalidate>
-    <ion-item>
+<ion-content padding text-center>
+  <img src="assets/imgs/logos/iconBetterNfl.png">
+  <p id="loginDescription" no-margin>Entre com sua conta do BetterNFL</p>
+
+  <form (ngSubmit)="login()">
+    <ion-item no-padding>
       <ion-label floating>Username/E-mail</ion-label>
-      <ion-input type="text" name="email" [(ngModel)]="userEmail" required></ion-input>
+      <ion-input type="text" [(ngModel)]="user.username" name="username"></ion-input>
     </ion-item>
 
-    <ion-item>
+    <ion-item no-padding>
       <ion-label floating>Senha</ion-label>
-      <ion-input type="password" name="password" [(ngModel)]="password" required></ion-input>
+      <ion-input type="password" [(ngModel)]="user.password" name="password"></ion-input>
     </ion-item>
 
-    <button ion-button block color="primary" [disabled]="!form.form.valid" (click)="autenticaLogin()">
-      Entrar
-    </button>
+    <button ion-button full margin-top type="submit">Entrar</button>
   </form>
 
-  <p text-center>Ou</p>
+  <p>Não possui uma conta? <a (click)="chamaCadastroUsuario()">Cadastre-se</a></p>
 
-  <button ion-button block icon-left color="danger" margin-top (click)="signInWithGoogle()">
-    <ion-icon name="logo-google"></ion-icon>
-    Entrar com o Google
-  </button>
-
-  <button ion-button block icon-left color="facebook" margin-top (click)="signInWithFacebook()">
-    <ion-icon name="logo-facebook"></ion-icon>
-    Entrar com o Facebook
-  </button>
-
-  <button ion-button block color="light" margin-top (click)="createAccount()">
-    Criar conta
-  </button>
 </ion-content>
+
