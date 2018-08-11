@@ -71,7 +71,13 @@ export class JogoPage {
         scales: {
           yAxes: [{
             ticks: {
-              beginAtZero: true
+              suggestedMin: 1,
+              suggestedMax: 32,
+            },
+          }],
+          xAxes: [{
+            gridLines: {
+              display: false
             }
           }]
         }

@@ -8,12 +8,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPageModule } from '../pages/login/login.module';
 import { SingupPageModule } from '../pages/singup/singup.module';
 import { ComponentsModule } from '../components/components.module';
-import { ApiNflProvider } from '../providers/api-nfl/api-nfl';
 import { BetterNflService } from '../services/betternfl.service';
 import { HttpModule } from '@angular/http';
 import { ConfigProvider } from '../providers/config/config';
 import { SettingsPageModule } from '../pages/settings/settings.module';
 import { JogoPageModule } from '../pages/jogo/jogo.module';
+import { IonicStorageModule } from '@ionic/storage';
 
 
 @NgModule({
@@ -24,6 +24,7 @@ import { JogoPageModule } from '../pages/jogo/jogo.module';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
     LoginPageModule,
     SingupPageModule,
     JogoPageModule,
@@ -40,7 +41,6 @@ import { JogoPageModule } from '../pages/jogo/jogo.module';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ApiNflProvider,
     ConfigProvider,
     BetterNflService
   ]

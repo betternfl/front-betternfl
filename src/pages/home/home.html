@@ -1,8 +1,8 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons start>
+    <ion-buttons left>
       <button ion-button menuToggle>
-        <ion-icon name="menu"></ion-icon>
+        <ion-icon name="contact"></ion-icon>
       </button>
     </ion-buttons>
     <ion-title>
@@ -37,17 +37,22 @@
     </ion-card-content>
   </ion-card>
   <ion-list>
-    <ion-item no-lines style="border-bottom: 1px solid lightgray" *ngFor="let jogo of jogos" (click)="detalhesJogo(jogo)">
-      <ion-avatar item-start style="min-width:auto; min-height:auto;">
-        <img style="width:40px; height:auto;" [src]="jogo.timeCasa.logo">
-      </ion-avatar>
-      <div>
-        <h3 align="center">{{jogo.timeCasa.nome}} vs {{jogo.timeFora.nome}}</h3>
-        <p align="center">{{jogo.timeCasaPontuacao}} vs {{jogo.timeForaPontuacao}}</p>
-      </div>
-      <ion-avatar item-end style="min-width:auto; min-height:auto;">
-        <img style="width:40px; height:auto;" [src]="jogo.timeFora.logo">
-      </ion-avatar>
-    </ion-item>
+    <ion-item-group *ngFor="let dia of jogosPorSemana">
+      <ion-item-divider color="light">{{dia.diaSemana}}</ion-item-divider>
+      <ion-item no-lines style="border-bottom: 1px solid lightgray" *ngFor="let jogo of dia.jogos" (click)="detalhesJogo(jogo)">
+        <ion-avatar item-start style="min-width:auto; min-height:auto;">
+          <img style="width:40px; height:auto;" [src]="jogo.timeCasa.logo">
+        </ion-avatar>
+        <div>
+          <p align="center"><ion-icon name="ios-clock-outline"></ion-icon> {{jogo.horaJogo}} </p>
+          <h3 align="center">{{jogo.timeCasa.nome}} vs {{jogo.timeFora.nome}}</h3>
+          <p *ngIf="!jogo.jogoFuturo" align="center">{{jogo.timeCasaPontuacao}} vs {{jogo.timeForaPontuacao}}</p>
+          <p align="center"><ion-icon name="pin"></ion-icon> {{jogo.timeCasa.estadio}}</p>
+        </div>
+        <ion-avatar item-end style="min-width:auto; min-height:auto;">
+          <img style="width:40px; height:auto;" [src]="jogo.timeFora.logo">
+        </ion-avatar>
+      </ion-item>
+    </ion-item-group>
   </ion-list>
 </ion-content>

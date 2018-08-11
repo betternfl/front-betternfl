@@ -5,12 +5,9 @@ import { NgForm } from '@angular/forms';
 import { HomePage } from '../home/home';
 import { ConfigProvider } from '../../providers/config/config';
 import { BetterNflService } from '../../services/betternfl.service';
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { SettingsPage } from '../settings/settings';
+import { Storage } from '@ionic/storage';
+
 
 @IonicPage()
 @Component({
@@ -21,7 +18,7 @@ import { BetterNflService } from '../../services/betternfl.service';
   ]
 })
 export class LoginPage {
-  user:any = {
+  user: any = {
     username: null,
     password: null
   };
@@ -32,11 +29,22 @@ export class LoginPage {
     private toastCtrl: ToastController,
     private loadingController: LoadingController,
     private ConfigProvider: ConfigProvider,
-    private betterNflService: BetterNflService) {
+    private betterNflService: BetterNflService,
+    private storage: Storage
+  ) {
+  }
+
+  ionViewDidLoad(){
+    this.storage.get('user').then((user) => {
+      // Abrir tela Meus cursos
+      if(user != null && user.id_Usuario != 0){
+        this.navCtrl.push(SettingsPage);
+      }
+    });
   }
 
   login() {
-    this.navCtrl.push(HomePage);
+    this.navCtrl.push(SettingsPage);
     // let loading = this.loadingController.create({
     //   content: 'Aguarde...'
     // });
@@ -48,22 +56,24 @@ export class LoginPage {
     // });
 
     // loading.present();
-    // if(this.user.username === null || this.user.password === null){
+    // if (this.user.username === null || this.user.password === null) {
     //   toast.setMessage('Informe o usuário e senha');
     //   toast.present();
     //   loading.dismiss();
     //   return;
     // }
     // this.betterNflService.login(this.user.username, this.user.password)
-    // .then((result: any) => {
-    //   this.navCtrl.push(TabsPage);
-    //   loading.dismiss();
-    // })
-    // .catch((error: any) => {
-    //   toast.setMessage('Usuário ou senha incorretos!')
-    //   toast.present();
-    //   loading.dismiss();
-    // });
+    //   .then((result: any) => {
+    //     this.storage.set('user', result);
+
+    //     this.navCtrl.push(SettingsPage);
+    //     loading.dismiss();
+    //   })
+    //   .catch((error: any) => {
+    //     toast.setMessage('Usuário ou senha incorretos!')
+    //     toast.present();
+    //     loading.dismiss();
+    //   });
   }
 
   chamaCadastroUsuario() {

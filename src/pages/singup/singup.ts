@@ -21,17 +21,6 @@ export class SingupPage {
     password: null,
     id_TimeFavorito: null
   };
-  loading = this.loadingController.create({
-    content: 'Aguarde...'
-  });
-  toast = this.toastController.create({
-    duration: 3000,
-    position: 'top',
-    showCloseButton: true,
-    closeButtonText: 'X'
-  });
-
-
 
   constructor(public navCtrl: NavController,
     private betterNflService: BetterNflService,
@@ -76,33 +65,50 @@ export class SingupPage {
     }
     this.betterNflService.cadastraUsuario(this.user)
       .then((result: any) => {
-        this.toast.setMessage('Usuário cadastrado com sucesso!');
-        this.toast.present();
+        let loading = this.loadingController.create({
+          content: 'Aguarde...'
+        });
+        let toast = this.toastController.create({
+          message: 'Usuário cadastrado com sucesso!',
+          duration: 3000,
+          position: 'top',
+          showCloseButton: true,
+          closeButtonText: 'X'
+        });
+        toast.present();
         this.navCtrl.push(LoginPage);
-        this.loading.dismiss();
+        loading.dismiss();
       })
       .catch((error: any) => {
+        let loading = this.loadingController.create({
+          content: 'Aguarde...'
+        });
         console.log(error);
-        this.toast.present();
-        this.loading.dismiss();
+        loading.dismiss();
       });
   }
 
-  async buscaUsuario() {
-    this.loading.present();
-    let usuarioExistente = await this.betterNflService.BuscaUsuario(this.user.username);
-    if (usuarioExistente.id_Usuario != 0) {
-      this.user.id_Usuario = usuarioExistente.id_Usuario;
-      this.user.username = usuarioExistente.username;
-      this.user.password = usuarioExistente.password;
-      this.user.email = usuarioExistente.email;
-      this.user.id_TimeFavorito = usuarioExistente.id_TimeFavorito;
-      if (usuarioExistente.id_TimeFavorito != null && usuarioExistente.id_TimeFavorito != 0) {
-        this.timeFavorito = await this.betterNflService.BuscaTime(usuarioExistente.id_TimeFavorito);
-        this.temFavorito = (this.timeFavorito.id_time != 0);
-      }
-    }
-    console.log(this.timeFavorito);
-    this.loading.dismiss();
+  buscaUsuario() {
+    this.betterNflService.BuscaUsuario(this.user.username)
+      .then((result: any) => {
+        let loading = this.loadingController.create({
+          content: 'Aguarde...'
+        });
+        loading.present();
+        if (result.id_Usuario != 0) {
+          let toast = this.toastController.create({
+            message: 'Usuário Existente!',
+            duration: 3000,
+            position: 'top',
+            showCloseButton: true,
+            closeButtonText: 'X'
+          });
+          toast.present();
+        }
+        loading.dismiss();
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
   }
 }

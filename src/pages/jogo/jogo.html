@@ -26,6 +26,9 @@
             <p>Não há registro de partidas entre esses times desde 2015</p>
           </ion-item>
           <ion-item no-lines style="border-bottom: 1px solid lightgray" *ngFor="let historico of historicos">
+            <div>
+              <p style="text-align: center">{{historico.dataJogo}}</p>
+            </div>
             <ion-item>
               <ion-avatar item-start style="min-width:auto; min-height:auto;">
                 <img style="width:30px; height:auto;" [src]="historico.timeCasa.logo">

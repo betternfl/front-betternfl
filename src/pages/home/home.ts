@@ -11,7 +11,7 @@ export class HomePage {
   semanas: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
   anos:any[] = [2018,2017,2016,2015];
   carregouJogos: boolean = true;
-  jogos: any = [];
+  jogosPorSemana: any = [];
   login: any;
   showCard: boolean = false;
   ano: number;
@@ -30,10 +30,9 @@ export class HomePage {
     });
   }
   limpaTela(){
-    this.jogos = [];
+    this.jogosPorSemana = [];
     this.showCard = false;
   }
-  
   mostraCard(){
     this.showCard = !this.showCard;
   }
@@ -44,8 +43,11 @@ export class HomePage {
       content: 'Aguarde...'
     });
     loading.present();
-    this.jogos = await this.betterNflService.Jogos(ano, semana);
-    console.log(this.jogos);
+    this.jogosPorSemana = await this.betterNflService.Jogos(ano, semana);
+    console.log(this.jogosPorSemana);
+    if(this.showCard){
+      this.showCard = false;
+    }
     loading.dismiss();
   }
 
