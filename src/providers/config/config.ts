@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { TabsPage } from '../../pages/tabs/tabs';
 import { LoginPage } from '../../pages/login/login';
 
 let config_key_name = "betterNFL"

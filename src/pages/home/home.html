@@ -1,33 +1,52 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Better NFL</ion-title>
-  </ion-navbar>
+  <ion-toolbar>
+    <ion-buttons start>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      Better NFL
+    </ion-title>
+  </ion-toolbar>
   <ion-toolbar no-border-top>
-      <ion-scroll scrollX="true" style="width:100vw; height:50px">
-        <ion-row nowrap>
-          <div *ngFor="let semana of semanas">
-            <button ion-button small outline (click)="carregaJogosSemana(semana)" item-right>Semana {{semana}}</button>
-          </div>
-        </ion-row>
-      </ion-scroll>
+    <ion-scroll scrollX="true" style="width:100vw; height:50px">
+      <ion-row nowrap>
+        <div *ngFor="let semana of semanas">
+          <button ion-button small outline (click)="carregaJogos(ano, semana)" item-right>Semana {{semana}}</button>
+        </div>
+      </ion-row>
+    </ion-scroll>
   </ion-toolbar>
 </ion-header>
 
 <ion-content contentWidth="100">
-  <h3 align="center">
-    <ion-spinner name="bubbles" *ngIf="carregouJogos == false"></ion-spinner>
-  </h3>
+  <ion-fab top right edge>
+    <button ion-fab mini (click)="mostraCard()">
+      <ion-icon name="build"></ion-icon>
+    </button>
+  </ion-fab>
+  <ion-card *ngIf="showCard">
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Ano:</ion-label>
+        <ion-select [(ngModel)]="ano" (ionChange)="logAno()">
+          <ion-option *ngFor="let ano of anos" [value]="ano">{{ano}}</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
   <ion-list>
-    <ion-item no-lines style="border-bottom: 1px solid lightgray" *ngFor="let jogo of jogos"  (click)="exibeDetalhe(jogo)">
+    <ion-item no-lines style="border-bottom: 1px solid lightgray" *ngFor="let jogo of jogos" (click)="detalhesJogo(jogo)">
       <ion-avatar item-start style="min-width:auto; min-height:auto;">
-        <img style="width:40px; height:auto;" [src]="logoTime(jogo.timeCasa)">
+        <img style="width:40px; height:auto;" [src]="jogo.timeCasa.logo">
       </ion-avatar>
       <div>
-        <h3 align="center">{{jogo.timeCasa}} vs {{jogo.timeFora}}</h3>
+        <h3 align="center">{{jogo.timeCasa.nome}} vs {{jogo.timeFora.nome}}</h3>
         <p align="center">{{jogo.timeCasaPontuacao}} vs {{jogo.timeForaPontuacao}}</p>
       </div>
       <ion-avatar item-end style="min-width:auto; min-height:auto;">
-        <img style="width:40px; height:auto;" [src]="logoTime(jogo.timeFora)">
+        <img style="width:40px; height:auto;" [src]="jogo.timeFora.logo">
       </ion-avatar>
     </ion-item>
   </ion-list>

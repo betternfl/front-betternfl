@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Jogo</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding text-center>
+  <form (ngSubmit)="login()">
+    <ion-card>
+      <ion-card-header>
+        Rankings
+      </ion-card-header>
+      <ion-card-content>
+        <ion-spinner name="bubbles" *ngIf="carregaRanking"></ion-spinner>
+        <canvas #barCanvas></canvas>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        Últimas Partidas
+      </ion-card-header>
+      <ion-card-content text-wrap>
+        <ion-spinner name="bubbles" *ngIf="carregaHistorico"></ion-spinner>
+        <ion-list>
+          <ion-item *ngIf="semHistorico">
+            <p>Não há registro de partidas entre esses times desde 2015</p>
+          </ion-item>
+          <ion-item no-lines style="border-bottom: 1px solid lightgray" *ngFor="let historico of historicos">
+            <ion-item>
+              <ion-avatar item-start style="min-width:auto; min-height:auto;">
+                <img style="width:30px; height:auto;" [src]="historico.timeCasa.logo">
+              </ion-avatar>
+              <h6 *ngIf="historico.vencedor == historico.timeCasa.id_time">{{historico.timeCasa.nome}} {{historico.timeCasaPontuacao}}</h6>
+              <p *ngIf="historico.vencedor != historico.timeCasa.id_time">{{historico.timeCasa.nome}} {{historico.timeCasaPontuacao}}</p>
+            </ion-item>
+            <ion-item>
+              <ion-avatar item-start style="min-width:auto; min-height:auto;">
+                <img style="width:30px; height:auto;" [src]="historico.timeFora.logo">
+              </ion-avatar>
+              <h6 *ngIf="historico.vencedor == historico.timeFora.id_time">{{historico.timeFora.nome}} {{historico.timeForaPontuacao}}</h6>
+              <p *ngIf="historico.vencedor != historico.timeFora.id_time">{{historico.timeFora.nome}} {{historico.timeForaPontuacao}}</p>
+            </ion-item>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </form>
+</ion-content>
