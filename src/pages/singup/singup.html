@@ -6,49 +6,43 @@
 
 </ion-header>
 
-
-<ion-content>
-  <form #form="ngForm" novalidate>
-
-    <ion-item>
+<ion-content padding text-center>
+  <form (ngSubmit)="cadastraUsuario()">
+    <ion-item no-padding>
       <ion-label floating>Username</ion-label>
-      <ion-input type="text" name="username" [(ngModel)]="username" required></ion-input>
+      <ion-input type="text" (ionBlur)="buscaUsuario()" [(ngModel)]="user.username" name="username"></ion-input>
     </ion-item>
-
-    <ion-item>
+    
+    <ion-item no-padding>
       <ion-label floating>E-mail</ion-label>
-      <ion-input type="text" name="email" [(ngModel)]="email" required></ion-input>
+      <ion-input type="text" [(ngModel)]="user.email" name="email"></ion-input>
     </ion-item>
 
-    <ion-item>
+    <ion-item no-padding>
       <ion-label floating>Senha</ion-label>
-      <ion-input type="password" name="password" [(ngModel)]="password" required></ion-input>
+      <ion-input type="password" [(ngModel)]="user.password" name="password"></ion-input>
     </ion-item>
 
-    <br/>
-
-    <ion-list contentWidth="100" no-lines>
-      <ion-item detail-none (click)="expandFav()">
-        <h2>Time Favorito</h2>
-        <expandable [expanded]="fav">
-          <ion-item  ion-item *ngFor="let time of times" (click)="favoritaTime(time)" class="" type="item-text-wrap">
-            <ion-thumbnail style="min-width:auto; min-height:auto;" item-start>
-              <img style="width:40px; height:auto" [src]="time.foto">
-            </ion-thumbnail>
-            <h2>{{time.nomeTime}}</h2>
+    <ion-card>
+      <ion-card-header>
+         <p (click)="mostraTimes()">Selecione o time favorito </p>
+      </ion-card-header>
+      <ion-card-content *ngIf ="exibeTimes">
+          <ion-item *ngFor="let time of times" (click)="favoritaTime(time)">
+              <ion-thumbnail style="min-width:auto; min-height:auto;" item-start>
+                  <img style="width:40px; height:auto" [src]="time.logo">
+                </ion-thumbnail>
+              <p>{{time.nome}}</p>      
           </ion-item>
-        </expandable>
-      </ion-item>
-      <ion-item>
+      </ion-card-content>
+      <ion-item *ngIf ="temFavorito">
         <ion-thumbnail style="min-width:auto; min-height:auto;" item-start>
-          <img style="width:40px; height:auto" [src]="fotoFav">
+          <img style="width:40px; height:auto" [src]="timeFavorito.logo">
         </ion-thumbnail>
-        <h2>{{timeFav}}</h2>
+        <p>{{timeFavorito.nome}}</p>
       </ion-item>
+    </ion-card>
 
-    </ion-list>
-    <button ion-button block color="primary" [disabled]="!form.form.valid" (click)="createAccount()">
-      Criar conta
-    </button>
+    <button ion-button full margin-top type="submit">Cadastrar</button>
   </form>
 </ion-content>

@@ -1,45 +1,57 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { getTypeNameForDebugging } from '@angular/common/src/directives/ng_for_of';
-import { ApiNflProvider } from '../../providers/api-nfl/api-nfl';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { BetterNflService } from '../../services/betternfl.service';
+import { JogoPage } from '../jogo/jogo';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers: [
-    ApiNflProvider
-  ]
 })
 export class HomePage {
-  exibeDetalhe: boolean = false;
-  apostados: boolean = false;
-  naoApostados: boolean = false;
+  semanas: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
+  anos:any[] = [2018,2017,2016,2015];
+  carregouJogos: boolean = true;
+  jogosPorSemana: any = [];
+  login: any;
+  showCard: boolean = false;
+  ano: number;
 
-  constructor(public navCtrl: NavController, private api_nfl: ApiNflProvider) {
+  constructor(public navCtrl: NavController,
+    private loadingController: LoadingController,
+    private betterNflService: BetterNflService) {
+      this.ano = 2018;
+  }
+  logAno(){
+    console.log(this.ano);
+  }
+  detalhesJogo(jogo) {
+    this.navCtrl.push(JogoPage, {
+      jogo: jogo
+    });
+  }
+  limpaTela(){
+    this.jogosPorSemana = [];
+    this.showCard = false;
+  }
+  mostraCard(){
+    this.showCard = !this.showCard;
   }
 
-  expandApostados() {
-    this.apostados = !this.apostados;
-    this.exibeDetalhe = false;
-    this.naoApostados = false;
-  }
-  expandNaoApostados() {
-    this.naoApostados = !this.naoApostados;
-    this.exibeDetalhe = false;
-    this.apostados = false;
-  }
-  expandJogos() {
-    this.exibeDetalhe = !this.exibeDetalhe;
+  async carregaJogos(ano:number, semana: number) {
+
+    let loading = this.loadingController.create({
+      content: 'Aguarde...'
+    });
+    loading.present();
+    this.jogosPorSemana = await this.betterNflService.Jogos(ano, semana);
+    console.log(this.jogosPorSemana);
+    if(this.showCard){
+      this.showCard = false;
+    }
+    loading.dismiss();
   }
 
-  ionViewDidLoad() {
-    this.api_nfl.getSchedule().subscribe(
-      data => {
-        const response = (data as any);
-        console.log(response);
-      }, error => {
-        console.log(error);
-      }
-    )
+  logoTime(time: string) {
+    return 'assets/imgs/logos/' + time + '.png';
   }
 }

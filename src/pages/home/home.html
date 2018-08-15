@@ -1,38 +1,58 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Bem-Vindo ao Better NFL</ion-title>
-  </ion-navbar>
+  <ion-toolbar>
+    <ion-buttons left>
+      <button ion-button menuToggle>
+        <ion-icon name="contact"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      Better NFL
+    </ion-title>
+  </ion-toolbar>
+  <ion-toolbar no-border-top>
+    <ion-scroll scrollX="true" style="width:100vw; height:50px">
+      <ion-row nowrap>
+        <div *ngFor="let semana of semanas">
+          <button ion-button small outline (click)="carregaJogos(ano, semana)" item-right>Semana {{semana}}</button>
+        </div>
+      </ion-row>
+    </ion-scroll>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content contentWidth="100">
-
-  <ion-item no-lines detail-none>
-    <h2 (click)="expandNaoApostados()">Jogos Não Apostados</h2>
-    <expandable [expanded]="naoApostados">
+  <ion-fab top right edge>
+    <button ion-fab mini (click)="mostraCard()">
+      <ion-icon name="build"></ion-icon>
+    </button>
+  </ion-fab>
+  <ion-card *ngIf="showCard">
+    <ion-card-content>
       <ion-item>
-        <h2 (click)="expandJogos()">TB vs CLE</h2>
-        <expandable [expanded]="exibeDetalhe">
-          <ion-item>
-            <h2>10 x 14</h2>
-          </ion-item>
-        </expandable>
+        <ion-label>Ano:</ion-label>
+        <ion-select [(ngModel)]="ano" (ionChange)="logAno()">
+          <ion-option *ngFor="let ano of anos" [value]="ano">{{ano}}</ion-option>
+        </ion-select>
       </ion-item>
-    </expandable>
-  </ion-item>
-
-  <ion-item no-lines detail-none>
-    <h2 (click)="expandApostados()">Jogos Apostados</h2>
-    <expandable [expanded]="apostados">
-      <ion-item>
-        <h2 (click)="expandJogos()">NE vs GB</h2>
-        <expandable [expanded]="exibeDetalhe">
-          <ion-item>
-            <h2>10 x 14</h2>
-          </ion-item>
-        </expandable>
+    </ion-card-content>
+  </ion-card>
+  <ion-list>
+    <ion-item-group *ngFor="let dia of jogosPorSemana">
+      <ion-item-divider color="light">{{dia.diaSemana}}</ion-item-divider>
+      <ion-item no-lines style="border-bottom: 1px solid lightgray" *ngFor="let jogo of dia.jogos" (click)="detalhesJogo(jogo)">
+        <ion-avatar item-start style="min-width:auto; min-height:auto;">
+          <img style="width:40px; height:auto;" [src]="jogo.timeCasa.logo">
+        </ion-avatar>
+        <div>
+          <p align="center"><ion-icon name="ios-clock-outline"></ion-icon> {{jogo.horaJogo}} </p>
+          <h3 align="center">{{jogo.timeCasa.nome}} vs {{jogo.timeFora.nome}}</h3>
+          <p *ngIf="!jogo.jogoFuturo" align="center">{{jogo.timeCasaPontuacao}} vs {{jogo.timeForaPontuacao}}</p>
+          <p align="center"><ion-icon name="pin"></ion-icon> {{jogo.timeCasa.estadio}}</p>
+        </div>
+        <ion-avatar item-end style="min-width:auto; min-height:auto;">
+          <img style="width:40px; height:auto;" [src]="jogo.timeFora.logo">
+        </ion-avatar>
       </ion-item>
-    </expandable>
-  </ion-item>
-
-  
+    </ion-item-group>
+  </ion-list>
 </ion-content>
