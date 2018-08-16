@@ -36,7 +36,6 @@ export class LoginPage {
 
   ionViewDidLoad(){
     this.storage.get('user').then((user) => {
-      // Abrir tela Meus cursos
       if(user != null && user.id_Usuario != 0){
         this.navCtrl.push(SettingsPage);
       }
