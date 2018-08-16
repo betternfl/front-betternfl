@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { HomePage } from '../home/home';
-import { SingupPage } from '../singup/singup';
 import { Storage } from '@ionic/storage';
+import { BetterNflService } from '../../services/betternfl.service';
 
 @IonicPage()
 @Component({
@@ -12,15 +12,18 @@ import { Storage } from '@ionic/storage';
 })
 export class SettingsPage {
   rootPage = HomePage;
+  color1 = "#C8AA76";
+  color2 = "#C9243F";
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public storage: Storage,
-    private loadingController: LoadingController) {
+    private loadingController: LoadingController,
+    private betterNflService: BetterNflService) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SettingsPage');
+  logoTime(time: string) {
+    return 'assets/imgs/logos/' + time + '.png';
   }
 
   SignOut() {
