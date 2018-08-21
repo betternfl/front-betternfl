@@ -104,6 +104,13 @@ export class SingupPage {
             closeButtonText: 'X'
           });
           toast.present();
+          this.user= {
+            id_Usuario: 0,
+            username: null,
+            email: null,
+            password: null,
+            id_TimeFavorito: null
+          };
         }
         loading.dismiss();
       })

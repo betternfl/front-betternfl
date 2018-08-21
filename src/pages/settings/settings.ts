@@ -12,15 +12,24 @@ import { Storage } from '@ionic/storage';
 })
 export class SettingsPage {
   rootPage = HomePage;
+  usuario: any = {};
+  imagem;
+  corTime;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public storage: Storage,
-    private loadingController: LoadingController) {
+  ) {
+    this.carregaUsuario();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SettingsPage');
+  async carregaUsuario() {
+    this.usuario = await this.storage.get('user');
+    if (this.usuario.timeFavorito == null) {
+      this.imagem = "assets/imgs/interrogacao.png";
+    } else {
+      this.imagem = this.usuario.timeFavorito.logo;
+    }
   }
 
   SignOut() {

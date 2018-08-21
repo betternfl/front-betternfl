@@ -1,19 +1,33 @@
 <ion-menu [content]="content">
   <ion-header>
     <ion-toolbar>
-      <ion-title>Menu</ion-title>
+      <ion-title align="center">Perfil</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-content>
-    <ion-list>
-      <button ion-item>
+  <ion-content class=".dynamic-bg-color">
+    <div align="center" style="margin-bottom: 2rem">
+      <ion-avatar item-end style="min-width:auto; min-height:auto;">
+        <img [src]="imagem" style="width:150px; height:auto;">
+      </ion-avatar>
+      <h4 style="font-size:250%">{{usuario.username}}</h4>
+      <h5>BetCoins: {{usuario.betCoins}}</h5>
+
+      <p>
+        <ion-icon name="contacts"></ion-icon>
+        Amigos
+      </p>
+      <p>
+        <ion-icon name="hammer"></ion-icon>
         Alterar Usuário
-      </button>
-      <button ion-item (click)="SignOut()">
-        Sair
-      </button>
-    </ion-list>
+      </p>
+    </div>
   </ion-content>
+  <ion-footer>
+    <p align="center" (click)="SignOut()">
+      Sair
+      <!-- <ion-icon name="ios-walk-outline"></ion-icon> -->
+    </p>
+  </ion-footer>
 </ion-menu>
 
 <ion-nav id="nav" #content [root]="rootPage"></ion-nav>

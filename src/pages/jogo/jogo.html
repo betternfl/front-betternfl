@@ -21,10 +21,10 @@
       </ion-card-header>
       <ion-card-content text-wrap>
         <ion-spinner name="bubbles" *ngIf="carregaHistorico"></ion-spinner>
+        <ion-item *ngIf="semHistorico">
+          <p>Não há registro de partidas entre esses times desde 2015</p>
+        </ion-item>
         <ion-list>
-          <ion-item *ngIf="semHistorico">
-            <p>Não há registro de partidas entre esses times desde 2015</p>
-          </ion-item>
           <ion-item no-lines style="border-bottom: 1px solid lightgray" *ngFor="let historico of historicos">
             <div>
               <p style="text-align: center">{{historico.dataJogo}}</p>

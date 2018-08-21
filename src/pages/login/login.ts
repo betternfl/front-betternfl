@@ -43,36 +43,37 @@ export class LoginPage {
   }
 
   login() {
-    this.navCtrl.push(SettingsPage);
-    // let loading = this.loadingController.create({
-    //   content: 'Aguarde...'
-    // });
-    // let toast = this.toastCtrl.create({
-    //   duration: 3000,
-    //   position: 'bottom',
-    //   showCloseButton: true,
-    //   closeButtonText: 'X'
-    // });
+    // this.navCtrl.push(SettingsPage);
+    let loading = this.loadingController.create({
+      content: 'Aguarde...'
+    });
+    let toast = this.toastCtrl.create({
+      duration: 3000,
+      position: 'bottom',
+      showCloseButton: true,
+      closeButtonText: 'X'
+    });
 
-    // loading.present();
-    // if (this.user.username === null || this.user.password === null) {
-    //   toast.setMessage('Informe o usuário e senha');
-    //   toast.present();
-    //   loading.dismiss();
-    //   return;
-    // }
-    // this.betterNflService.login(this.user.username, this.user.password)
-    //   .then((result: any) => {
-    //     this.storage.set('user', result);
+    loading.present();
+    if (this.user.username === null || this.user.password === null) {
+      toast.setMessage('Informe o usuário e senha');
+      toast.present();
+      loading.dismiss();
+      return;
+    }
+    this.betterNflService.login(this.user.username, this.user.password)
+      .then((result: any) => {
+        this.storage.set('user', result);
 
-    //     this.navCtrl.push(SettingsPage);
-    //     loading.dismiss();
-    //   })
-    //   .catch((error: any) => {
-    //     toast.setMessage('Usuário ou senha incorretos!')
-    //     toast.present();
-    //     loading.dismiss();
-    //   });
+        this.navCtrl.push(SettingsPage);
+        loading.dismiss();
+      })
+      .catch((error: any) => {
+        console.log(error.json());
+        toast.setMessage('Usuário ou senha incorretos!')
+        toast.present();
+        loading.dismiss();
+      });
   }
 
   chamaCadastroUsuario() {
