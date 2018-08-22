@@ -17,6 +17,9 @@ export class JogoPage {
   carregaRanking = false;
   semHistorico = false;
   barChart: any;
+  showCard: boolean = false;
+  timeCasa: null;
+  timeFora: null;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -32,8 +35,11 @@ export class JogoPage {
     console.log(this.historicos);
     if (this.historicos.length == 0) {
       this.semHistorico = true;
+    } else {
+      this.carregaHistorico = false;
+      this.timeCasa = this.jogo.timeCasa.nome;
+      this.timeFora = this.jogo.timeFora.nome;
     }
-    this.carregaHistorico = false;
   }
 
   async CarregaRankingTimes() {
@@ -128,5 +134,14 @@ export class JogoPage {
       }
     });
     this.carregaRanking = false;
+  }
+
+  mostraCard() {
+    this.showCard = !this.showCard;
+  }
+
+  EnviarAposta() {
+    //Codigo para enviar Aposta
+    this.showCard = false;
   }
 }

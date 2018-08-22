@@ -4,6 +4,7 @@ import { LoginPage } from '../login/login';
 import { HomePage } from '../home/home';
 import { SingupPage } from '../singup/singup';
 import { Storage } from '@ionic/storage';
+import { AmigosPage } from '../amigos/amigos';
 
 @IonicPage()
 @Component({
@@ -35,5 +36,9 @@ export class SettingsPage {
   SignOut() {
     this.storage.remove('user');
     this.navCtrl.setRoot(LoginPage);
+  }
+
+  GoToAmigosPage() {
+    this.navCtrl.push(AmigosPage);
   }
 }
