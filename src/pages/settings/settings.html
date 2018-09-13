@@ -4,23 +4,29 @@
       <ion-title align="center">Perfil</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-content class="background-settings">
+  <ion-content class=".dynamic-bg-color">
     <div align="center" style="margin-bottom: 2rem">
-      <img src="assets/imgs/logos/seahawks.png"><br/>
-      <ion-label style="font-size:250%">Gabriel</ion-label>
-      <ion-label>100 BetCoins</ion-label>
+      <ion-avatar item-end style="min-width:auto; min-height:auto;">
+        <img [src]="imagem" style="width:150px; height:auto;">
+      </ion-avatar>
+      <h4 style="font-size:250%">{{usuario.username}}</h4>
+      <h5>BetCoins: {{usuario.betCoins}}</h5>
+
+      <p>
+        <ion-icon name="contacts"></ion-icon>
+        Amigos
+      </p>
+      <p>
+        <ion-icon name="hammer"></ion-icon>
+        Alterar Usuário
+      </p>
     </div>
-    <button class="button-settings" ion-button full>
-      Amigos
-    </button>
-    <button class="button-settings" ion-button full>
-      Alterar Usuário
-    </button>
   </ion-content>
   <ion-footer>
-    <button style="background: white; color: black" ion-button full (click)="SignOut()">
+    <p align="center" (click)="SignOut()">
       Sair
-    </button>
+      <!-- <ion-icon name="ios-walk-outline"></ion-icon> -->
+    </p>
   </ion-footer>
 </ion-menu>
 

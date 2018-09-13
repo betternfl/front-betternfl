@@ -50,8 +50,4 @@ export class HomePage {
     }
     loading.dismiss();
   }
-
-  logoTime(time: string) {
-    return 'assets/imgs/logos/' + time + '.png';
-  }
 }

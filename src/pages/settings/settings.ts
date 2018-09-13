@@ -12,18 +12,24 @@ import { BetterNflService } from '../../services/betternfl.service';
 })
 export class SettingsPage {
   rootPage = HomePage;
-  color1 = "#C8AA76";
-  color2 = "#C9243F";
+  usuario: any = {};
+  imagem;
+  corTime;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public storage: Storage,
-    private loadingController: LoadingController,
-    private betterNflService: BetterNflService) {
+  ) {
+    this.carregaUsuario();
   }
 
-  logoTime(time: string) {
-    return 'assets/imgs/logos/' + time + '.png';
+  async carregaUsuario() {
+    this.usuario = await this.storage.get('user');
+    if (this.usuario.timeFavorito == null) {
+      this.imagem = "assets/imgs/interrogacao.png";
+    } else {
+      this.imagem = this.usuario.timeFavorito.logo;
+    }
   }
 
   SignOut() {
