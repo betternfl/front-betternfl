@@ -14,6 +14,7 @@ import { ConfigProvider } from '../providers/config/config';
 import { SettingsPageModule } from '../pages/settings/settings.module';
 import { JogoPageModule } from '../pages/jogo/jogo.module';
 import { IonicStorageModule } from '@ionic/storage';
+import { AmigosPageModule } from '../pages/amigos/amigos.module';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { IonicStorageModule } from '@ionic/storage';
     JogoPageModule,
     ComponentsModule,
     HttpModule,
-    SettingsPageModule
+    SettingsPageModule,
+    AmigosPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

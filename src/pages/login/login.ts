@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, Alert, LoadingController } from 'ionic-angular';
 import { SingupPage } from '../singup/singup';
 import { NgForm } from '@angular/forms';
-import { HomePage } from '../home/home';
 import { ConfigProvider } from '../../providers/config/config';
 import { BetterNflService } from '../../services/betternfl.service';
 import { SettingsPage } from '../settings/settings';
@@ -67,13 +66,15 @@ export class LoginPage {
 
         this.navCtrl.push(SettingsPage);
         loading.dismiss();
-      })
+      });
+    /*
       .catch((error: any) => {
         console.log(error.json());
         toast.setMessage('Usuário ou senha incorretos!')
         toast.present();
         loading.dismiss();
-      });
+      });*/
+      
   }
 
   chamaCadastroUsuario() {

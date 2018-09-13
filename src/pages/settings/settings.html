@@ -12,13 +12,13 @@
       <h4 style="font-size:250%">{{usuario.username}}</h4>
       <h5>BetCoins: {{usuario.betCoins}}</h5>
 
-      <p>
+      <p (click)="GoToAmigosPage()">
         <ion-icon name="contacts"></ion-icon>
         Amigos
       </p>
       <p>
         <ion-icon name="hammer"></ion-icon>
-        Alterar Usuário
+        Editar Usuário
       </p>
     </div>
   </ion-content>

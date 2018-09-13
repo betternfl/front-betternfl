@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-an
 import { LoginPage } from '../login/login';
 import { HomePage } from '../home/home';
 import { Storage } from '@ionic/storage';
+import { AmigosPage } from '../amigos/amigos';
 import { BetterNflService } from '../../services/betternfl.service';
 
 @IonicPage()
@@ -35,5 +36,9 @@ export class SettingsPage {
   SignOut() {
     this.storage.remove('user');
     this.navCtrl.setRoot(LoginPage);
+  }
+
+  GoToAmigosPage() {
+    this.navCtrl.push(AmigosPage);
   }
 }
