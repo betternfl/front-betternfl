@@ -66,14 +66,13 @@ export class LoginPage {
 
         this.navCtrl.push(SettingsPage);
         loading.dismiss();
-      });
-    /*
+      })
       .catch((error: any) => {
-        console.log(error.json());
+        console.log(error);
         toast.setMessage('Usuário ou senha incorretos!')
         toast.present();
         loading.dismiss();
-      });*/
+      });
       
   }
 

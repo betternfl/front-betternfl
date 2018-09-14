@@ -48,6 +48,11 @@
           <h3 align="center">{{jogo.timeCasa.nome}} vs {{jogo.timeFora.nome}}</h3>
           <p *ngIf="!jogo.jogoFuturo" align="center">{{jogo.timeCasaPontuacao}} vs {{jogo.timeForaPontuacao}}</p>
           <p align="center"><ion-icon name="pin"></ion-icon> {{jogo.timeCasa.estadio}}</p>
+          <p align="center">
+            <ion-icon name="american-football" *ngIf="jogo.id_TimeProbabilidadeVencedor == jogo.timeCasa.id_time"></ion-icon> 
+            {{jogo.ProbabilidadeVencedor}}
+            <ion-icon name="american-football" *ngIf="jogo.id_TimeProbabilidadeVencedor == jogo.timeFora.id_time"></ion-icon> 
+          </p>
         </div>
         <ion-avatar item-end style="min-width:auto; min-height:auto;">
           <img style="width:40px; height:auto;" [src]="jogo.timeFora.logo">
