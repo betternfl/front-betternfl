@@ -1,0 +1,38 @@
+<!--
+  Generated template for the AmigosPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Amigos</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-fab top right edge>
+    <button ion-fab mini (click)="mostraCard()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+  <ion-card *ngIf="showCard">
+    <ion-card-content>
+      <ion-item no-padding>
+        <ion-label floating>Username/E-mail</ion-label>
+        <ion-input type="text"></ion-input>
+      </ion-item>
+      <ion-fab botton right edge>
+        <button ion-fab mini (click)="procuraAmigo()">
+          <ion-icon name="search"></ion-icon>
+        </button>
+      </ion-fab>
+    </ion-card-content>
+  </ion-card>
+  <ion-list>
+    <!-- Aqui vai os amigos -->
+  </ion-list>
+</ion-content>

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Headers } from '@angular/http';
 
-const API_BASE_URL = 'http://localhost:51475/api/';
+const API_BASE_URL = 'http://192.168.0.19:8080/api/'; //Kaique
+// const API_BASE_URL = 'http://192.168.30.105:8080/api/'; //Gabriel
+//const API_BASE_URL = 'http://172.20.10.2:8080/api/';
 @Injectable()
 export class BetterNflService {
 
@@ -57,9 +59,17 @@ export class BetterNflService {
         return response;
     }
 
-    async BuscaUsuario(username: string) {
-        let response = await this.http.get(API_BASE_URL + 'usuarios/' + username).toPromise();
-        return response.json();
+    BuscaUsuario(username: string) {
+        return new Promise((resolve, reject) => {
+            this.http.get(API_BASE_URL + 'usuarios/' + username)
+                .subscribe(
+                    (result: any) => {
+                        resolve(result.json());
+                    },
+                    (error) => {
+                        reject(error);
+                    });
+        });
     }
 
     async BuscaTime(id_time: number) {
@@ -68,14 +78,14 @@ export class BetterNflService {
         return response.json();
     }
 
-    async Historico(idTime1:number, idTime2:number) {
+    async Historico(idTime1: number, idTime2: number) {
         let response = await this.http.get(API_BASE_URL + 'jogos/historico/' + idTime1 + '/' + idTime2).toPromise();
 
         return response.json();
     }
 
-    async Ranking(ano:number, idTime:number){
-        let response = await this.http.get(API_BASE_URL + 'times/ranking/'+ ano+ '/' + idTime).toPromise();
+    async Ranking(ano: number, idTime: number) {
+        let response = await this.http.get(API_BASE_URL + 'times/ranking/' + ano + '/' + idTime).toPromise();
 
         return response.json();
     }

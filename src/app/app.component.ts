@@ -6,6 +6,7 @@ import { JogoPage } from '../pages/jogo/jogo';
 import { LoginPage } from '../pages/login/login';
 import { ConfigProvider } from '../providers/config/config';
 import { HomePage } from '../pages/home/home';
+import { SettingsPage } from '../pages/settings/settings';
 
 @Component({
   templateUrl: 'app.html',
@@ -14,7 +15,7 @@ import { HomePage } from '../pages/home/home';
   ]
 })
 export class MyApp {
-  rootPage: any;
+  rootPage: any = LoginPage;
   login: boolean = false;
 
   constructor(
@@ -24,20 +25,11 @@ export class MyApp {
     ConfigProvider: ConfigProvider
   ) {
     platform.ready().then(() => {
-      let status = ConfigProvider.getConfigData();
-      if (status == null) {
-        this.rootPage = LoginPage;
-      } else {
-        const lst_status = JSON.parse(status);
-        if (!lst_status.logado) {
-          this.rootPage = LoginPage;
-        }
-        else
-          this.rootPage = HomePage;
-      }
-      statusBar.styleDefault();
-      splashScreen.hide();
-    });
+    // Okay, so the platform is ready and our plugins are available.
+    // Here you can do any higher level native things you might need.
+    statusBar.styleDefault();
+    splashScreen.hide();
+  });
   }
 
 }

@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { HomePage } from '../home/home';
-import { SingupPage } from '../singup/singup';
+import { Storage } from '@ionic/storage';
+import { AmigosPage } from '../amigos/amigos';
+import { BetterNflService } from '../../services/betternfl.service';
 
 @IonicPage()
 @Component({
@@ -11,23 +13,32 @@ import { SingupPage } from '../singup/singup';
 })
 export class SettingsPage {
   rootPage = HomePage;
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  usuario: any = {};
+  imagem;
+  corTime;
+
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    public storage: Storage,
+  ) {
+    this.carregaUsuario();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SettingsPage');
+  async carregaUsuario() {
+    this.usuario = await this.storage.get('user');
+    if (this.usuario.timeFavorito == null) {
+      this.imagem = "assets/imgs/interrogacao.png";
+    } else {
+      this.imagem = this.usuario.timeFavorito.logo;
+    }
   }
 
   SignOut() {
-    let config = {
-      logado: false,
-      name: "",
-      username: "",
-      password: "",
-    }
-    localStorage.setItem("betterNFL", JSON.stringify(config));
-    window.location.reload();
+    this.storage.remove('user');
+    this.navCtrl.setRoot(LoginPage);
   }
 
+  GoToAmigosPage() {
+    this.navCtrl.push(AmigosPage);
+  }
 }
