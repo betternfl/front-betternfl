@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { BetterNflService } from '../../services/betternfl.service';
 import { Chart } from 'chart.js';
 import { Storage } from '@ionic/storage';
+import { HomePage } from '../home/home';
+import { ApostaPage } from '../aposta/aposta';
 
 
 @IonicPage()
@@ -20,15 +22,11 @@ export class JogoPage {
     timeFavorito: null,
   };
   historicos: any = [];
-  tiposApostas: any = [];
-  tipoAposta: any;
   carregaHistorico = false;
   betCoinsApostados: any;
   carregaRanking = false;
   semHistorico = false;
   barChart: any;
-  apostouTimeCasa = true;
-  showDetalhesAposta: boolean = false;
   timeCasa: null;
   timeFora: null;
 
@@ -46,26 +44,10 @@ export class JogoPage {
         this.usuario.timeFavorito = user.timeFavorito;
       }
     });
-    this.CarregaTiposAposta();
     this.CarregaHistoricoPartidas();
     this.CarregaRankingTimes();
   }
   
-  changeTimeAposta(){
-    console.log(this.apostouTimeCasa);
-  }
-  logTipoAposta() {
-    console.log(this.tipoAposta);
-  }
-
-  async CarregaTiposAposta() {
-    this.tiposApostas = await this.betterNflService.TiposAposta();
-    if (this.tiposApostas.length > 0) {
-      this.tipoAposta = 1;
-    }
-    console.log(this.tiposApostas);
-  }
-
   async CarregaHistoricoPartidas() {
     this.carregaHistorico = true;
     this.historicos = await this.betterNflService.Historico(this.jogo.timeCasa.id_time, this.jogo.timeFora.id_time);
@@ -171,5 +153,10 @@ export class JogoPage {
       }
     });
     this.carregaRanking = false;
+  }
+
+  chamaTelaAposta(){
+    this.storage.set('jogoAposar',this.jogo);
+    this.navCtrl.push(ApostaPage);
   }
 }

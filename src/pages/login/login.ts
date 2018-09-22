@@ -42,7 +42,6 @@ export class LoginPage {
   }
 
   login() {
-    // this.navCtrl.push(SettingsPage);
     let loading = this.loadingController.create({
       content: 'Aguarde...'
     });
