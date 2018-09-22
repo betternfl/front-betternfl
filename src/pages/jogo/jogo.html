@@ -2,77 +2,58 @@
   <ion-navbar>
     <div>
       <ion-title>
-        {{usuario.username}}
+        Jogo
       </ion-title>
     </div>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding text-center>
-  <form>
-    <ion-card>
-      <ion-card-header (click)="showDetalhesAposta = !showDetalhesAposta">
-        Apostar
-      </ion-card-header>
-      <ion-card-content *ngIf="showDetalhesAposta">
-        <ion-grid>
-          <ion-row>
-            <ion-col width-50 (click)="apostouTimeCasa = !apostouTimeCasa">
-              <ion-icon *ngIf="apostouTimeCasa" name="american-football"></ion-icon>
-              {{jogo.timeCasa.nome}}
-            </ion-col>
-            <ion-col width-50 (click)="apostouTimeCasa = !apostouTimeCasa">
-              <ion-icon *ngIf="!apostouTimeCasa" name="american-football"></ion-icon>
-              {{jogo.timeFora.nome}}
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-input type="number" placeholder="Betcoins"></ion-input>
-          </ion-row>
-        </ion-grid>
-      </ion-card-content>
-    </ion-card>
-    <ion-card>
-      <ion-card-header>
-        Rankings
-      </ion-card-header>
-      <ion-card-content>
-        <ion-spinner name="bubbles" *ngIf="carregaRanking"></ion-spinner>
-        <canvas #barCanvas></canvas>
-      </ion-card-content>
-    </ion-card>
-    <ion-card>
-      <ion-card-header>
-        Últimas Partidas
-        <h6>*Nas 2 últimas temporadas regulares</h6>
-      </ion-card-header>
-      <ion-card-content text-wrap>
-        <ion-spinner name="bubbles" *ngIf="carregaHistorico"></ion-spinner>
-        <ion-item *ngIf="semHistorico">
-          <p>Não há registro de partidas entre esses times desde 2015</p>
-        </ion-item>
-        <ion-list>
-          <ion-item no-lines style="border-bottom: 1px solid lightgray" *ngFor="let historico of historicos">
-            <div>
-              <p style="text-align: center">{{historico.dataJogo}}</p>
-            </div>
-            <ion-item>
-              <ion-avatar item-start style="min-width:auto; min-height:auto;">
-                <img style="width:30px; height:auto;" [src]="historico.timeCasa.logo">
-              </ion-avatar>
-              <h6 *ngIf="historico.vencedor == historico.timeCasa.id_time">{{historico.timeCasa.nome}} {{historico.timeCasaPontuacao}}</h6>
-              <p *ngIf="historico.vencedor != historico.timeCasa.id_time">{{historico.timeCasa.nome}} {{historico.timeCasaPontuacao}}</p>
-            </ion-item>
-            <ion-item>
-              <ion-avatar item-start style="min-width:auto; min-height:auto;">
-                <img style="width:30px; height:auto;" [src]="historico.timeFora.logo">
-              </ion-avatar>
-              <h6 *ngIf="historico.vencedor == historico.timeFora.id_time">{{historico.timeFora.nome}} {{historico.timeForaPontuacao}}</h6>
-              <p *ngIf="historico.vencedor != historico.timeFora.id_time">{{historico.timeFora.nome}} {{historico.timeForaPontuacao}}</p>
-            </ion-item>
+  <p>Gostaria de apostar neste jogo? <a (click)="chamaTelaAposta()">Aposte</a></p>
+  <ion-card>
+    <ion-card-header>
+      Rankings
+    </ion-card-header>
+    <ion-card-content>
+      <ion-spinner name="bubbles" *ngIf="carregaRanking"></ion-spinner>
+      <canvas #barCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      Últimas Partidas
+      <h6>*Nas 2 últimas temporadas regulares</h6>
+    </ion-card-header>
+    <ion-card-content text-wrap>
+      <ion-spinner name="bubbles" *ngIf="carregaHistorico"></ion-spinner>
+      <ion-item *ngIf="semHistorico">
+        <p>Não há registro de partidas entre esses times desde 2015</p>
+      </ion-item>
+      <ion-list>
+        <ion-item no-lines style="border-bottom: 1px solid lightgray" *ngFor="let historico of historicos">
+          <div>
+            <p style="text-align: center">{{historico.dataJogo}}</p>
+          </div>
+          <ion-item>
+            <ion-avatar item-start style="min-width:auto; min-height:auto;">
+              <img style="width:30px; height:auto;" [src]="historico.timeCasa.logo">
+            </ion-avatar>
+            <h6 *ngIf="historico.vencedor == historico.timeCasa.id_time">{{historico.timeCasa.nome}}
+              {{historico.timeCasaPontuacao}}</h6>
+            <p *ngIf="historico.vencedor != historico.timeCasa.id_time">{{historico.timeCasa.nome}}
+              {{historico.timeCasaPontuacao}}</p>
           </ion-item>
-        </ion-list>
-      </ion-card-content>
-    </ion-card>
-  </form>
+          <ion-item>
+            <ion-avatar item-start style="min-width:auto; min-height:auto;">
+              <img style="width:30px; height:auto;" [src]="historico.timeFora.logo">
+            </ion-avatar>
+            <h6 *ngIf="historico.vencedor == historico.timeFora.id_time">{{historico.timeFora.nome}}
+              {{historico.timeForaPontuacao}}</h6>
+            <p *ngIf="historico.vencedor != historico.timeFora.id_time">{{historico.timeFora.nome}}
+              {{historico.timeForaPontuacao}}</p>
+          </ion-item>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
