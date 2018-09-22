@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
-
-/**
- * Generated class for the AmigosPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { BetterNflService } from '../../services/betternfl.service';
 
 @IonicPage()
 @Component({
@@ -14,12 +8,14 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
   templateUrl: 'amigos.html',
 })
 export class AmigosPage {
-
   showCard: boolean = false;
+  amigos:any = [];
+  usuarioPesquisa:any;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
-              private toastController: ToastController) {
+              private toastController: ToastController,
+              private betterNflService: BetterNflService) {
   }
 
   ionViewDidLoad() {
@@ -29,18 +25,17 @@ export class AmigosPage {
   mostraCard(){
     this.showCard = !this.showCard;
   }
+  async CarregaAmigos(){
 
-  procuraAmigo(){
-    //codigo para procurar amigo
+  }
 
-    let toast = this.toastController.create({
-      message: 'Usuário não encontrado',
-      duration: 3000,
-      position: 'top',
-      showCloseButton: true,
-      closeButtonText: 'X'
-    });
-    toast.present();
-    this.showCard = !this.showCard;
+  async procuraAmigo(){
+    this.betterNflService.BuscaAmigos(this.usuarioPesquisa)
+      .then((result: any) => {
+        console.log(result.json());
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
   }
 }

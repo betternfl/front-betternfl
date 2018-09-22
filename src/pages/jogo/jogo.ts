@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { BetterNflService } from '../../services/betternfl.service';
 import { Chart } from 'chart.js';
+import { Storage } from '@ionic/storage';
 
 
 @IonicPage()
@@ -12,21 +13,57 @@ import { Chart } from 'chart.js';
 export class JogoPage {
   @ViewChild('barCanvas') barCanvas;
   jogo: any;
+  usuario: any = {
+    id_Usuario: 0,
+    username: null,
+    betcoins: null,
+    timeFavorito: null,
+  };
   historicos: any = [];
+  tiposApostas: any = [];
+  tipoAposta: any;
   carregaHistorico = false;
+  betCoinsApostados: any;
   carregaRanking = false;
   semHistorico = false;
   barChart: any;
-  showCard: boolean = false;
+  apostouTimeCasa = true;
+  showDetalhesAposta: boolean = false;
   timeCasa: null;
   timeFora: null;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private betterNflService: BetterNflService) {
+    private betterNflService: BetterNflService,
+    public storage: Storage) {
     this.jogo = navParams.get('jogo');
+
+    this.storage.get('user').then((user) => {
+      if (user != null && user.id_Usuario != 0) {
+        this.usuario.id_Usuario = user.id_Usuario;
+        this.usuario.username = user.username;
+        this.usuario.betcoins = user.betCoins;
+        this.usuario.timeFavorito = user.timeFavorito;
+      }
+    });
+    this.CarregaTiposAposta();
     this.CarregaHistoricoPartidas();
     this.CarregaRankingTimes();
+  }
+  
+  changeTimeAposta(){
+    console.log(this.apostouTimeCasa);
+  }
+  logTipoAposta() {
+    console.log(this.tipoAposta);
+  }
+
+  async CarregaTiposAposta() {
+    this.tiposApostas = await this.betterNflService.TiposAposta();
+    if (this.tiposApostas.length > 0) {
+      this.tipoAposta = 1;
+    }
+    console.log(this.tiposApostas);
   }
 
   async CarregaHistoricoPartidas() {
@@ -134,14 +171,5 @@ export class JogoPage {
       }
     });
     this.carregaRanking = false;
-  }
-
-  mostraCard() {
-    this.showCard = !this.showCard;
-  }
-
-  EnviarAposta() {
-    //Codigo para enviar Aposta
-    this.showCard = false;
   }
 }
