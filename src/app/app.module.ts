@@ -15,6 +15,7 @@ import { SettingsPageModule } from '../pages/settings/settings.module';
 import { JogoPageModule } from '../pages/jogo/jogo.module';
 import { IonicStorageModule } from '@ionic/storage';
 import { AmigosPageModule } from '../pages/amigos/amigos.module';
+import { ApostaPageModule } from '../pages/aposta/aposta.module';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { AmigosPageModule } from '../pages/amigos/amigos.module';
     ComponentsModule,
     HttpModule,
     SettingsPageModule,
-    AmigosPageModule
+    AmigosPageModule,
+    ApostaPageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [

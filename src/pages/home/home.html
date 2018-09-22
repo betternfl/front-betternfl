@@ -39,18 +39,28 @@
   <ion-list>
     <ion-item-group *ngFor="let dia of jogosPorSemana">
       <ion-item-divider color="light">{{dia.diaSemana}}</ion-item-divider>
-      <ion-item no-lines style="border-bottom: 1px solid lightgray" *ngFor="let jogo of dia.jogos" (click)="detalhesJogo(jogo)">
+      <ion-item no-lines style=" border-bottom: 1px solid lightgray;" *ngFor="let jogo of dia.jogos" (click)="detalhesJogo(jogo)">
         <ion-avatar item-start style="min-width:auto; min-height:auto;">
           <img style="width:40px; height:auto;" [src]="jogo.timeCasa.logo">
+          <p *ngIf="jogo.id_TimeProbabilidadeVencedor == jogo.timeCasa.id_time">
+            {{jogo.probabilidadeVencedor}}%
+          </p>
         </ion-avatar>
         <div>
-          <p align="center"><ion-icon name="ios-clock-outline"></ion-icon> {{jogo.horaJogo}} </p>
+          <p align="center">
+            <ion-icon name="ios-clock-outline"></ion-icon> {{jogo.horaJogo}}
+          </p>
           <h3 align="center">{{jogo.timeCasa.nome}} vs {{jogo.timeFora.nome}}</h3>
           <p *ngIf="!jogo.jogoFuturo" align="center">{{jogo.timeCasaPontuacao}} vs {{jogo.timeForaPontuacao}}</p>
-          <p align="center"><ion-icon name="pin"></ion-icon> {{jogo.timeCasa.estadio}}</p>
+          <p align="center">
+            <ion-icon name="pin"></ion-icon> {{jogo.timeCasa.estadio}}
+          </p>
         </div>
         <ion-avatar item-end style="min-width:auto; min-height:auto;">
           <img style="width:40px; height:auto;" [src]="jogo.timeFora.logo">
+          <p *ngIf="jogo.id_TimeProbabilidadeVencedor == jogo.timeFora.id_time">
+            {{jogo.probabilidadeVencedor}}%
+          </p>
         </ion-avatar>
       </ion-item>
     </ion-item-group>

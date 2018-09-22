@@ -2,6 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { BetterNflService } from '../../services/betternfl.service';
 import { Chart } from 'chart.js';
+import { Storage } from '@ionic/storage';
+import { HomePage } from '../home/home';
+import { ApostaPage } from '../aposta/aposta';
 
 
 @IonicPage()
@@ -12,23 +15,39 @@ import { Chart } from 'chart.js';
 export class JogoPage {
   @ViewChild('barCanvas') barCanvas;
   jogo: any;
+  usuario: any = {
+    id_Usuario: 0,
+    username: null,
+    betcoins: null,
+    timeFavorito: null,
+  };
   historicos: any = [];
   carregaHistorico = false;
+  betCoinsApostados: any;
   carregaRanking = false;
   semHistorico = false;
   barChart: any;
-  showCard: boolean = false;
   timeCasa: null;
   timeFora: null;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private betterNflService: BetterNflService) {
+    private betterNflService: BetterNflService,
+    public storage: Storage) {
     this.jogo = navParams.get('jogo');
+
+    this.storage.get('user').then((user) => {
+      if (user != null && user.id_Usuario != 0) {
+        this.usuario.id_Usuario = user.id_Usuario;
+        this.usuario.username = user.username;
+        this.usuario.betcoins = user.betCoins;
+        this.usuario.timeFavorito = user.timeFavorito;
+      }
+    });
     this.CarregaHistoricoPartidas();
     this.CarregaRankingTimes();
   }
-
+  
   async CarregaHistoricoPartidas() {
     this.carregaHistorico = true;
     this.historicos = await this.betterNflService.Historico(this.jogo.timeCasa.id_time, this.jogo.timeFora.id_time);
@@ -136,12 +155,8 @@ export class JogoPage {
     this.carregaRanking = false;
   }
 
-  mostraCard() {
-    this.showCard = !this.showCard;
-  }
-
-  EnviarAposta() {
-    //Codigo para enviar Aposta
-    this.showCard = false;
+  chamaTelaAposta(){
+    this.storage.set('jogoAposar',this.jogo);
+    this.navCtrl.push(ApostaPage);
   }
 }

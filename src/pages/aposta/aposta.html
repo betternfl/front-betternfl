@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Apostar</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding text-center>
+  <h6 align="center">Você tem {{usuario.betcoins}} BetCoins</h6>
+  <ion-grid>
+    <ion-row align="center">
+      <ion-col width-50>
+        <p>{{timeCasa.nome}}</p>
+        <ion-avatar>
+          <img [src]="timeCasa.logo">
+        </ion-avatar>
+      </ion-col>
+      <ion-col width-50>
+        <p>{{timeFora.nome}}</p>
+        <ion-avatar>
+          <img [src]="timeFora.logo">
+        </ion-avatar>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-item no-padding>
+        <ion-label floating>BetCoins</ion-label>
+        <ion-input type="number" [(ngModel)]="betcoinsParaAposta"></ion-input>
+      </ion-item>
+    </ion-row>
+    <ion-row>
+      <button ion-button full margin-top (click)="apostar()">Apostar</button>
+    </ion-row>
+  </ion-grid>
+</ion-content>

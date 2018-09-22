@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, DateTime } from 'ionic-angular';
 import { BetterNflService } from '../../services/betternfl.service';
 import { JogoPage } from '../jogo/jogo';
 
@@ -20,6 +20,7 @@ export class HomePage {
     private loadingController: LoadingController,
     private betterNflService: BetterNflService) {
       this.ano = 2018;
+      this.carregaJogos(0,0);
   }
   logAno(){
     console.log(this.ano);
@@ -38,7 +39,7 @@ export class HomePage {
   }
 
   async carregaJogos(ano:number, semana: number) {
-
+    console.log(ano, semana);
     let loading = this.loadingController.create({
       content: 'Aguarde...'
     });

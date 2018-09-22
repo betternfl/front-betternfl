@@ -42,7 +42,6 @@ export class LoginPage {
   }
 
   login() {
-    // this.navCtrl.push(SettingsPage);
     let loading = this.loadingController.create({
       content: 'Aguarde...'
     });
@@ -66,14 +65,13 @@ export class LoginPage {
 
         this.navCtrl.push(SettingsPage);
         loading.dismiss();
-      });
-    /*
+      })
       .catch((error: any) => {
-        console.log(error.json());
+        console.log(error);
         toast.setMessage('Usuário ou senha incorretos!')
         toast.present();
         loading.dismiss();
-      });*/
+      });
       
   }
 

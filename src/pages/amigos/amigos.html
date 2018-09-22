@@ -1,9 +1,3 @@
-<!--
-  Generated template for the AmigosPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
@@ -21,10 +15,8 @@
   </ion-fab>
   <ion-card *ngIf="showCard">
     <ion-card-content>
-      <ion-item no-padding>
-        <ion-label floating>Username/E-mail</ion-label>
-        <ion-input type="text"></ion-input>
-      </ion-item>
+      <ion-label >Username/E-mail</ion-label>
+      <ion-input type="text" [(ngModel)]="usuarioPesquisa" name="usuarioPesquisa"></ion-input>
       <ion-fab botton right edge>
         <button ion-fab mini (click)="procuraAmigo()">
           <ion-icon name="search"></ion-icon>
