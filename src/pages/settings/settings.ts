@@ -5,6 +5,7 @@ import { HomePage } from '../home/home';
 import { Storage } from '@ionic/storage';
 import { AmigosPage } from '../amigos/amigos';
 import { BetterNflService } from '../../services/betternfl.service';
+import { SingupPage } from '../singup/singup';
 
 @IonicPage()
 @Component({
@@ -21,7 +22,11 @@ export class SettingsPage {
     public navParams: NavParams,
     public storage: Storage,
   ) {
-    this.carregaUsuario();
+    
+  }
+
+  ngOnInit() {
+    this.carregaUsuario(); // função para obter dados do serviço 
   }
 
   async carregaUsuario() {
@@ -40,5 +45,9 @@ export class SettingsPage {
 
   GoToAmigosPage() {
     this.navCtrl.push(AmigosPage);
+  }
+
+  GoToSingupPage() {
+    this.navCtrl.push(SingupPage);
   }
 }
