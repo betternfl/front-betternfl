@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { BetterNflService } from '../../services/betternfl.service';
 import { Storage } from '@ionic/storage';
 
@@ -9,6 +9,14 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'aposta.html',
 })
 export class ApostaPage {
+  aposta: any = {
+    id_Apostas: 0,
+    id_Usuario: 0,
+    id_Jogo: 0,
+    id_TipoAposta: 0,
+    id_TimeApostado: 0,
+    ValorApostado: null,
+  };
   usuario: any = {
     id_Usuario: 0,
     username: null,
@@ -16,44 +24,164 @@ export class ApostaPage {
     timeFavorito: null,
   };
   timeCasa: any = {
-    id_timeCasa: 0,
+    id_time: 0,
     logo: null,
     nome: null,
   };
   timeFora: any = {
-    id_timeFora: 0,
+    id_time: 0,
     logo: null,
     nome: null,
   };
-  id_jogo = 0;
   apostouTimeCasa = true;
+  timeApostado: any;
+  tiposAposta: any = [];
+  tipoAposta: any;
   betcoinsParaAposta: any;
+  idJogo = 0;
+  idAposta = 0;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private betterNflService: BetterNflService,
+    private toastController: ToastController,
     public storage: Storage
-    ) {
-    this.storage.get('jogoAposar').then((jogo) =>{
-      this.timeCasa.id_timeCasa = jogo.id_timeCasa;
+  ) {
+    this.betterNflService.BuscaTiposAposta().then((result) => {
+      this.tiposAposta = result;
+    }).catch((error) => {
+      console.log(error);
+    });
+
+    this.storage.get('jogoAposar').then((jogo) => {
+      this.idJogo = jogo.id_Jogo;
+      this.timeCasa.id_time = jogo.timeCasa.id_time;
       this.timeCasa.logo = jogo.timeCasa.logo;
       this.timeCasa.nome = jogo.timeCasa.nome;
 
-      this.timeFora.id_timeFora = jogo.id_timeFora;
+      this.timeFora.id_time = jogo.timeFora.id_time;
       this.timeFora.logo = jogo.timeFora.logo;
       this.timeFora.nome = jogo.timeFora.nome;
-    })
-    
-    this.storage.get('user').then((user) => {
-      if (user != null && user.id_Usuario != 0) {
-        this.usuario.id_Usuario = user.id_Usuario;
-        this.usuario.username = user.username;
-        this.usuario.betcoins = user.betCoins;
-        this.usuario.timeFavorito = user.timeFavorito;
-      }
+      this.storage.get('user').then((user) => {
+        if (user != null && user.id_Usuario != 0) {
+          this.aposta.id_Usuario = user.id_Usuario;
+          this.usuario.id_Usuario = user.id_Usuario;
+          this.usuario.username = user.username;
+          this.usuario.betcoins = user.betCoins;
+          this.usuario.timeFavorito = user.timeFavorito;
+          this.carregaAposta(this.usuario.id_Usuario, this.idJogo);
+        }
+      });
     });
-  }
-  apostar(){
-    console.log(this.betcoinsParaAposta);
+
   }
 
+  carregaAposta(idUsuario:number, idJogo:number){
+    this.betterNflService.BuscaAposta(idUsuario, idJogo)
+    .then((result:any)=>{
+      console.log(result);
+      this.aposta.id_Apostas = result.id_Apostas;
+      this.idAposta = result.id_Apostas;
+      if(result.id_TimeApostado == this.timeCasa.id_time){
+        this.apostouTimeCasa = true;
+      } else {
+        this.apostouTimeCasa = false;
+      }
+      this.tipoAposta = result.id_TipoAposta;
+      this.betcoinsParaAposta = result.valorApostado;
+    }).catch((error) =>{
+      console.log(error);
+    });
+  }
+
+  validaTela() {
+    if (this.tipoAposta == null || this.tipoAposta.id_Aposta == 0) {
+      let toast = this.toastController.create({
+        message: 'Selecione um tipo de aposta!',
+        duration: 3000,
+        position: 'bottom',
+        showCloseButton: true,
+        closeButtonText: 'X'
+      });
+      toast.present();
+      return false;
+    }
+    if (this.betcoinsParaAposta == null ||
+      parseFloat(this.betcoinsParaAposta) < 0 ||
+      parseFloat(this.betcoinsParaAposta) > parseFloat(this.usuario.betcoins)
+    ) {
+      let toast = this.toastController.create({
+        message: 'BetCoins inválidos!',
+        duration: 3000,
+        position: 'bottom',
+        showCloseButton: true,
+        closeButtonText: 'X'
+      });
+      toast.present();
+      return false;
+    }
+
+    return true;
+  }
+
+  excluirAposta(){
+    // console.log(this.aposta.id_Aposta, this.idAposta);
+    if(this.idAposta == 0 || this.idAposta == null){
+      let toast = this.toastController.create({
+        message: 'Realize a aposta primeiro!',
+        duration: 3000,
+        position: 'bottom',
+        showCloseButton: true,
+        closeButtonText: 'X'
+      });
+      toast.present();
+    } else {
+      this.betterNflService.excluirAposta(this.idAposta)
+      .then((result:any)=>{
+        let toast = this.toastController.create({
+          message: 'FOI!',
+          duration: 3000,
+          position: 'bottom',
+          showCloseButton: true,
+          closeButtonText: 'X'
+        });
+        toast.present();
+        this.storage.set('user', result);
+        this.usuario = result;
+        this.navCtrl.pop();
+      }).catch((error) =>{
+        console.log(error);
+      });
+    }
+  }
+
+  apostar() {
+    if (this.validaTela()) {
+      this.aposta.id_Jogo = this.idJogo;
+      if (this.apostouTimeCasa === true) {
+        this.aposta.id_TimeApostado = this.timeCasa.id_time;
+      } else {
+        this.aposta.id_TimeApostado = this.timeFora.id_time;
+      }
+      this.aposta.id_TipoAposta = this.tipoAposta;
+      this.aposta.ValorApostado = parseFloat(this.betcoinsParaAposta);
+      console.log(this.aposta);
+      
+      this.betterNflService.salvarAposta(this.aposta).then((result)=>{
+        let toast = this.toastController.create({
+          message: 'Aposta realizada com sucesso!',
+          duration: 3000,
+          position: 'bottom',
+          showCloseButton: true,
+          closeButtonText: 'X'
+        });
+        toast.present();
+
+        this.storage.set('user', result);
+        this.usuario = result;
+        this.navCtrl.pop();
+      }).catch((error) =>{
+        console.log(error);
+      });
+    }
+  }
 }
