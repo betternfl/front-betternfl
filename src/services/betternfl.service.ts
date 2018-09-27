@@ -57,6 +57,30 @@ export class BetterNflService {
                     });
         });
     }
+    BuscaAposta(id_Usuario: number, id_Jogo: number) {
+        return new Promise((resolve, reject) => {
+            this.http.get(API_BASE_URL + 'aposta/' + id_Usuario + '/' + id_Jogo)
+                .subscribe(
+                    (result: any) => {
+                        resolve(result.json());
+                    },
+                    (error) => {
+                        reject(error);
+                    });
+        });
+    }
+    salvarAposta(aposta: any) {
+        return new Promise((resolve, reject) => {
+            this.http.post(API_BASE_URL + 'aposta/SalvarOuAtualizar', aposta)
+                .subscribe(
+                    (result: any) => {
+                        resolve(result.json());
+                    },
+                    (error) => {
+                        reject(error);
+                    });
+        });
+    }
 
     async cadastraUsuario(usuario: any) {
         let response = await this.http.post(API_BASE_URL + 'usuarios/SalvarOuAtualizar', usuario).toPromise();
@@ -95,10 +119,30 @@ export class BetterNflService {
         return response.json();
     }
 
-    async TiposAposta() {
-        let response = await this.http.get(API_BASE_URL + 'TiposAposta').toPromise();
+    excluirAposta(id_Aposta: number) {
+        return new Promise((resolve, reject) => {
+            this.http.get(API_BASE_URL + 'Aposta/Excluir/'+ id_Aposta)
+                .subscribe(
+                    (result: any) => {
+                        resolve(result.json());
+                    },
+                    (error) => {
+                        reject(error);
+                    });
+        });
+    }
 
-        return response.json();
+    BuscaTiposAposta() {
+        return new Promise((resolve, reject) => {
+            this.http.get(API_BASE_URL + 'TiposAposta')
+                .subscribe(
+                    (result: any) => {
+                        resolve(result.json());
+                    },
+                    (error) => {
+                        reject(error);
+                    });
+        });
     }
 
     async Historico(idTime1: number, idTime2: number) {

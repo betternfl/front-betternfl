@@ -22,6 +22,7 @@ export class JogoPage {
     timeFavorito: null,
   };
   historicos: any = [];
+  jogoFuturo = false;
   carregaHistorico = false;
   betCoinsApostados: any;
   carregaRanking = false;
@@ -90,12 +91,6 @@ export class JogoPage {
       "Ataque",
       "Defesa",
     ];
-
-    if (!this.jogo.jogoFuturo) {
-      dataCasa.push(rankingTimeCasa.vitoriasCasa);
-      dataFora.push(rankingTimeFora.vitoriasFora);
-      labelsGrafico.push("Vitórias");
-    }
 
     let timeCasaDados = {
       label: rankingTimeCasa.time.nome,

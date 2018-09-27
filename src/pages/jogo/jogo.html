@@ -9,7 +9,7 @@
 </ion-header>
 
 <ion-content padding text-center>
-  <p>Gostaria de apostar neste jogo? <a (click)="chamaTelaAposta()">Aposte</a></p>
+  <p *ngIf="jogo.jogoFuturo">Gostaria de apostar neste jogo? <a (click)="chamaTelaAposta()">Aposte</a></p>
   <ion-card>
     <ion-card-header>
       Rankings

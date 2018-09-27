@@ -1,3 +1,11 @@
 page-aposta {
-
+    .my-select {
+        max-width: 70% !important;
+    }
+    .bordaApostado {
+        border-right: 2px solid lightgreen;
+        border-left: 2px solid lightgreen;
+        border-bottom: 2px solid lightgreen;
+        border-top: 2px solid lightgreen;
+    }
 }
