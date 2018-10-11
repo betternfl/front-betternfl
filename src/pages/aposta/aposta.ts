@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import { BetterNflService } from '../../services/betternfl.service';
 import { Storage } from '@ionic/storage';
 
@@ -44,6 +44,7 @@ export class ApostaPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private betterNflService: BetterNflService,
     private toastController: ToastController,
+    private loadingController: LoadingController,
     public storage: Storage
   ) {
     this.betterNflService.BuscaTiposAposta().then((result) => {
@@ -75,22 +76,22 @@ export class ApostaPage {
 
   }
 
-  carregaAposta(idUsuario:number, idJogo:number){
-    this.betterNflService.BuscaAposta(idUsuario, idJogo)
-    .then((result:any)=>{
-      console.log(result);
-      this.aposta.id_Apostas = result.id_Apostas;
-      this.idAposta = result.id_Apostas;
-      if(result.id_TimeApostado == this.timeCasa.id_time){
-        this.apostouTimeCasa = true;
-      } else {
-        this.apostouTimeCasa = false;
-      }
-      this.tipoAposta = result.id_TipoAposta;
-      this.betcoinsParaAposta = result.valorApostado;
-    }).catch((error) =>{
-      console.log(error);
-    });
+  carregaAposta(idUsuario: number, idJogo: number) {
+    this.betterNflService.BuscaApostaPorJogo(idUsuario, idJogo)
+      .then((result: any) => {
+        console.log(result);
+        this.aposta.id_Apostas = result.id_Apostas;
+        this.idAposta = result.id_Apostas;
+        if (result.id_TimeApostado == this.timeCasa.id_time) {
+          this.apostouTimeCasa = true;
+        } else {
+          this.apostouTimeCasa = false;
+        }
+        this.tipoAposta = result.id_TipoAposta;
+        this.betcoinsParaAposta = result.valorApostado;
+      }).catch((error) => {
+        console.log(error);
+      });
   }
 
   validaTela() {
@@ -123,9 +124,9 @@ export class ApostaPage {
     return true;
   }
 
-  excluirAposta(){
+  excluirAposta() {
     // console.log(this.aposta.id_Aposta, this.idAposta);
-    if(this.idAposta == 0 || this.idAposta == null){
+    if (this.idAposta == 0 || this.idAposta == null) {
       let toast = this.toastController.create({
         message: 'Realize a aposta primeiro!',
         duration: 3000,
@@ -136,25 +137,28 @@ export class ApostaPage {
       toast.present();
     } else {
       this.betterNflService.excluirAposta(this.idAposta)
-      .then((result:any)=>{
-        let toast = this.toastController.create({
-          message: 'FOI!',
-          duration: 3000,
-          position: 'bottom',
-          showCloseButton: true,
-          closeButtonText: 'X'
+        .then((result: any) => {
+          let toast = this.toastController.create({
+            message: 'FOI!',
+            duration: 3000,
+            position: 'bottom',
+            showCloseButton: true,
+            closeButtonText: 'X'
+          });
+          toast.present();
+          this.storage.set('user', result);
+          this.usuario = result;
+          this.navCtrl.pop();
+        }).catch((error) => {
+          console.log(error);
         });
-        toast.present();
-        this.storage.set('user', result);
-        this.usuario = result;
-        this.navCtrl.pop();
-      }).catch((error) =>{
-        console.log(error);
-      });
     }
   }
 
   apostar() {
+    let loading = this.loadingController.create({
+      content: 'Aguarde...'
+    });
     if (this.validaTela()) {
       this.aposta.id_Jogo = this.idJogo;
       if (this.apostouTimeCasa === true) {
@@ -165,8 +169,9 @@ export class ApostaPage {
       this.aposta.id_TipoAposta = this.tipoAposta;
       this.aposta.ValorApostado = parseFloat(this.betcoinsParaAposta);
       console.log(this.aposta);
-      
-      this.betterNflService.salvarAposta(this.aposta).then((result)=>{
+
+      loading.present();
+      this.betterNflService.salvarAposta(this.aposta).then((result) => {
         let toast = this.toastController.create({
           message: 'Aposta realizada com sucesso!',
           duration: 3000,
@@ -176,11 +181,13 @@ export class ApostaPage {
         });
         toast.present();
 
+        loading.dismiss();
         this.storage.set('user', result);
         this.usuario = result;
         this.navCtrl.pop();
-      }).catch((error) =>{
+      }).catch((error) => {
         console.log(error);
+        loading.dismiss();
       });
     }
   }
