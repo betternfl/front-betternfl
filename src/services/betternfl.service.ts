@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Headers } from '@angular/http';
 
-const API_BASE_URL = 'http://10.172.142.45:8080/api/';
+//const API_BASE_URL = 'http://10.172.142.45:8080/api/';
 //const API_BASE_URL = 'http://192.168.0.13:8080/api/';
-// const API_BASE_URL = 'http://192.168.1.40:8080/api/';
-//const API_BASE_URL = 'http://localhost:51475/api/'; //Debugar API 
+//const API_BASE_URL = 'http://192.168.1.40:8080/api/';
+//const API_BASE_URL = 'http://192.168.1.35:8080/api/';
+const API_BASE_URL = 'http://localhost:51475/api/'; //Debugar API 
 
 @Injectable()
 export class BetterNflService {
@@ -59,7 +60,34 @@ export class BetterNflService {
                     });
         });
     }
-    BuscaAposta(id_Usuario: number, id_Jogo: number) {
+
+    BuscarApostasFuturas(id_Usuario: number) {
+        return new Promise((resolve, reject) => {
+            this.http.get(API_BASE_URL + 'aposta/proximos/' + id_Usuario)
+                .subscribe(
+                    (result: any) => {
+                        resolve(result.json());
+                    },
+                    (error) => {
+                        reject(error);
+                    });
+        });
+    }
+
+    BuscarApostasHistoricas(id_Usuario: number) {
+        return new Promise((resolve, reject) => {
+            this.http.get(API_BASE_URL + 'aposta/historico/' + id_Usuario)
+                .subscribe(
+                    (result: any) => {
+                        resolve(result.json());
+                    },
+                    (error) => {
+                        reject(error);
+                    });
+        });
+    }
+
+    BuscaApostaPorJogo(id_Usuario: number, id_Jogo: number) {
         return new Promise((resolve, reject) => {
             this.http.get(API_BASE_URL + 'aposta/' + id_Usuario + '/' + id_Jogo)
                 .subscribe(
@@ -71,6 +99,7 @@ export class BetterNflService {
                     });
         });
     }
+
     salvarAposta(aposta: any) {
         return new Promise((resolve, reject) => {
             this.http.post(API_BASE_URL + 'aposta/SalvarOuAtualizar', aposta)
@@ -123,7 +152,7 @@ export class BetterNflService {
 
     excluirAposta(id_Aposta: number) {
         return new Promise((resolve, reject) => {
-            this.http.get(API_BASE_URL + 'Aposta/Excluir/'+ id_Aposta)
+            this.http.get(API_BASE_URL + 'Aposta/Excluir/' + id_Aposta)
                 .subscribe(
                     (result: any) => {
                         resolve(result.json());

@@ -16,12 +16,17 @@ import { JogoPageModule } from '../pages/jogo/jogo.module';
 import { IonicStorageModule } from '@ionic/storage';
 import { AmigosPageModule } from '../pages/amigos/amigos.module';
 import { ApostaPageModule } from '../pages/aposta/aposta.module';
+import { JogosApostadosPageModule } from '../pages/jogos-apostados/jogos-apostados.module';
+import { TabsApostadosPage } from '../pages/tabs-apostados/tabs-apostados';
+import { JogosApostadosAnterioresPageModule } from '../pages/jogos-apostados-anteriores/jogos-apostados-anteriores.module';
+import { TabsApostadosModule } from '../pages/tabs-apostados/tabs-apostados.module';
 
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
+    TabsApostadosPage,
   ],
   imports: [
     BrowserModule,
@@ -35,18 +40,22 @@ import { ApostaPageModule } from '../pages/aposta/aposta.module';
     SettingsPageModule,
     AmigosPageModule,
     ApostaPageModule,
+    TabsApostadosModule,
+    JogosApostadosPageModule,
+    JogosApostadosAnterioresPageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
+    TabsApostadosPage,
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     ConfigProvider,
     BetterNflService
   ]
 })
-export class AppModule {}
+export class AppModule { }

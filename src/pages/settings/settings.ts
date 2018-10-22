@@ -6,6 +6,8 @@ import { Storage } from '@ionic/storage';
 import { AmigosPage } from '../amigos/amigos';
 import { BetterNflService } from '../../services/betternfl.service';
 import { SingupPage } from '../singup/singup';
+import { JogosApostadosPage } from '../jogos-apostados/jogos-apostados';
+import { TabsApostadosPage } from '../tabs-apostados/tabs-apostados';
 
 @IonicPage()
 @Component({
@@ -41,6 +43,9 @@ export class SettingsPage {
   SignOut() {
     this.storage.remove('user');
     this.navCtrl.setRoot(LoginPage);
+  }
+  GoToApostadosPage(){
+    this.navCtrl.push(TabsApostadosPage);
   }
 
   GoToAmigosPage() {
