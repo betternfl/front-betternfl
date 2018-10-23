@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, LoadingController, ToastController
 import { LoginPage } from '../login/login';
 import { BetterNflService } from '../../services/betternfl.service';
 import { Storage } from '@ionic/storage';
+import { SettingsPage } from '../settings/settings';
 
 @IonicPage()
 @Component({
@@ -24,50 +25,37 @@ export class SingupPage {
     id_TimeFavorito: null
   };
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SignPage');
-  }
-
   constructor(public navCtrl: NavController,
     private betterNflService: BetterNflService,
     private loadingController: LoadingController,
     public storage: Storage,
     private toastController: ToastController) {
-    this.carregaUsuario();
     this.CarregaTimes();
+    this.CarregaUsuario();
     this.previousPage = this.navCtrl.last();
-    console.log('ionViewDidLoad SignPage Construtor');
   }
 
   async CarregaTimes() {
-    console.log("Carregando Times");
     this.times = await this.betterNflService.Times();
-    console.log(this.times);
   }
 
-  carregaUsuario() {
+  CarregaUsuario() {
     this.storage.get('user').then((result: any) => {
+      console.log(result);
       if (result != null) {
         this.user.id_Usuario = result.id_Usuario;
         this.user.username = result.username;
         this.user.email = result.email;
         this.user.password = result.password;
-        if (result.id_timeFavorito == undefined){
-          this.user.id_TimeFavorito = 0   
-        }else{
-          this.user.id_TimeFavorito = result.timeFavorito.id_time;
-          this.temFavorito = true;
+        if (result.timeFavorito != null) {
           this.timeFavorito = result.timeFavorito;
-          console.log(result)
-          //this.favoritaTime(result.timeFavorito)
+          this.temFavorito = true;
         }
-        console.log(this.user);
-      }else
-        console.log("Sem user logado");   
+      }
     })
-    .catch((error: any) => {  
-      console.log(error);
-    });
+      .catch((error: any) => {
+        console.log(error);
+      });
   }
 
   mostraTimes() {
@@ -75,7 +63,6 @@ export class SingupPage {
   }
 
   favoritaTime(time) {
-    console.log(time)
     this.times.map((listItem) => {
       if (time == listItem) {
         listItem.favorito = !listItem.favorito;
@@ -113,9 +100,14 @@ export class SingupPage {
           closeButtonText: 'X'
         });
         toast.present();
+        //GAMBIARRA
+        this.user.timeFavorito = this.timeFavorito;
         this.storage.set('user', this.user);
-        this.navCtrl.setRoot(this.previousPage);
-        this.navCtrl.popToRoot(this.previousPage);
+        if(this.user.id_Usuario != 0){
+          this.navCtrl.setRoot(SettingsPage);
+        } else{
+          this.navCtrl.setRoot(LoginPage);
+        }
         loading.dismiss();
       })
       .catch((error: any) => {
@@ -143,7 +135,7 @@ export class SingupPage {
             closeButtonText: 'X'
           });
           toast.present();
-          this.user= {
+          this.user = {
             id_Usuario: 0,
             username: null,
             email: null,
