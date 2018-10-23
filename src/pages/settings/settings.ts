@@ -24,20 +24,17 @@ export class SettingsPage {
     public navParams: NavParams,
     public storage: Storage,
   ) {
-    
-  }
 
-  ngOnInit() {
-    this.carregaUsuario(); // função para obter dados do serviço 
-  }
-
-  async carregaUsuario() {
-    this.usuario = await this.storage.get('user');
-    if (this.usuario.timeFavorito == null) {
-      this.imagem = "assets/imgs/interrogacao.png";
-    } else {
-      this.imagem = this.usuario.timeFavorito.logo;
-    }
+    this.storage.get('user').then((result:any)=>{
+      console.log('settings user', result);
+      if (result.timeFavorito == null) {
+        this.imagem = "assets/imgs/interrogacao.png";
+      } else {
+        this.imagem = result.timeFavorito.logo;
+      }
+    }).catch((error:any) =>{
+      console.log(error);
+    });
   }
 
   SignOut() {

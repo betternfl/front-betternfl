@@ -5,7 +5,7 @@ import { Http, RequestOptions, Headers } from '@angular/http';
 //const API_BASE_URL = 'http://192.168.0.13:8080/api/';
 //const API_BASE_URL = 'http://192.168.1.40:8080/api/';
 //const API_BASE_URL = 'http://192.168.1.35:8080/api/';
-const API_BASE_URL = 'http://localhost:51475/api/'; //Debugar API 
+const API_BASE_URL = 'http://localhost:52198/api/'; //Debugar API 
 
 @Injectable()
 export class BetterNflService {
