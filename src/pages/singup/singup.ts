@@ -32,7 +32,6 @@ export class SingupPage {
     private toastController: ToastController) {
     this.CarregaTimes();
     this.CarregaUsuario();
-    this.previousPage = this.navCtrl.last();
   }
 
   async CarregaTimes() {

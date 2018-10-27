@@ -4,7 +4,7 @@ import { Http, RequestOptions, Headers } from '@angular/http';
 //const API_BASE_URL = 'http://10.172.142.45:8080/api/';
 //const API_BASE_URL = 'http://192.168.0.13:8080/api/';
 //const API_BASE_URL = 'http://192.168.1.40:8080/api/';
-//const API_BASE_URL = 'http://192.168.1.35:8080/api/';
+// const API_BASE_URL = 'http://192.168.1.43:8080/api/';
 const API_BASE_URL = 'http://localhost:52198/api/'; //Debugar API 
 
 @Injectable()
