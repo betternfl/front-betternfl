@@ -38,6 +38,7 @@ export class JogoPage {
     this.jogo = navParams.get('jogo');
 
     this.storage.get('user').then((user) => {
+      console.log('user jogo rankings', user);
       if (user != null && user.id_Usuario != 0) {
         this.usuario.id_Usuario = user.id_Usuario;
         this.usuario.username = user.username;

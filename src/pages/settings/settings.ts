@@ -4,9 +4,7 @@ import { LoginPage } from '../login/login';
 import { HomePage } from '../home/home';
 import { Storage } from '@ionic/storage';
 import { AmigosPage } from '../amigos/amigos';
-import { BetterNflService } from '../../services/betternfl.service';
 import { SingupPage } from '../singup/singup';
-import { JogosApostadosPage } from '../jogos-apostados/jogos-apostados';
 import { TabsApostadosPage } from '../tabs-apostados/tabs-apostados';
 
 @IonicPage()
@@ -26,7 +24,7 @@ export class SettingsPage {
   ) {
 
     this.storage.get('user').then((result:any)=>{
-      console.log('settings user', result);
+      this.usuario = result;
       if (result.timeFavorito == null) {
         this.imagem = "assets/imgs/interrogacao.png";
       } else {
