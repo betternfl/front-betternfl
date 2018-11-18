@@ -49,7 +49,7 @@ export class JogoPage {
     this.CarregaHistoricoPartidas();
     this.CarregaRankingTimes();
   }
-  
+
   async CarregaHistoricoPartidas() {
     this.carregaHistorico = true;
     this.historicos = await this.betterNflService.Historico(this.jogo.timeCasa.id_time, this.jogo.timeFora.id_time);
@@ -57,10 +57,10 @@ export class JogoPage {
     if (this.historicos.length == 0) {
       this.semHistorico = true;
     } else {
-      this.carregaHistorico = false;
       this.timeCasa = this.jogo.timeCasa.nome;
       this.timeFora = this.jogo.timeFora.nome;
     }
+    this.carregaHistorico = false;
   }
 
   async CarregaRankingTimes() {

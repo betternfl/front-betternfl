@@ -80,6 +80,9 @@ export class SingupPage {
   }
 
   cadastraUsuario() {
+    let loading = this.loadingController.create({
+      content: 'Aguarde...'
+    });
     if (this.timeFavorito != null) {
       this.user.id_TimeFavorito = this.timeFavorito.id_time;
     } else {
@@ -88,9 +91,7 @@ export class SingupPage {
     console.log(this.user);
     this.betterNflService.cadastraUsuario(this.user)
       .then((result: any) => {
-        let loading = this.loadingController.create({
-          content: 'Aguarde...'
-        });
+        loading.present();
         let toast = this.toastController.create({
           message: 'Usuário cadastrado com sucesso!',
           duration: 3000,
@@ -99,9 +100,8 @@ export class SingupPage {
           closeButtonText: 'X'
         });
         toast.present();
-        //GAMBIARRA
-        this.user.timeFavorito = this.timeFavorito;
-        this.storage.set('user', this.user);
+        console.log(result.json())
+        this.storage.set('user', result.json())
         if(this.user.id_Usuario != 0){
           this.navCtrl.setRoot(SettingsPage);
         } else{
@@ -110,10 +110,15 @@ export class SingupPage {
         loading.dismiss();
       })
       .catch((error: any) => {
-        let loading = this.loadingController.create({
-          content: 'Aguarde...'
+        loading.present();
+        let toast = this.toastController.create({
+          message: error.json(),
+          duration: 3000,
+          position: 'top',
+          showCloseButton: true,
+          closeButtonText: 'X'
         });
-        console.log(error);
+        toast.present();
         loading.dismiss();
       });
   }

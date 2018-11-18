@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { HomePage } from '../home/home';
@@ -14,32 +14,43 @@ import { TabsApostadosPage } from '../tabs-apostados/tabs-apostados';
 })
 export class SettingsPage {
   rootPage = HomePage;
-  usuario: any = {};
+  usuario = {
+    betCoins: null,
+    email: null,
+    id_Usuario: 0,
+    password: null,
+    timeFavorito: null,
+    username: null,
+  };
   imagem;
+  betCoins =0;
   corTime;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public storage: Storage,
+    private zone: NgZone,
   ) {
+    this.carregaUsuario();
+  }
 
-    this.storage.get('user').then((result:any)=>{
-      this.usuario = result;
-      if (result.timeFavorito == null) {
-        this.imagem = "assets/imgs/interrogacao.png";
-      } else {
-        this.imagem = result.timeFavorito.logo;
-      }
-    }).catch((error:any) =>{
-      console.log(error);
+  async carregaUsuario() {
+    this.usuario = await this.storage.get('user');
+    this.zone.run(()=> {
+      this.betCoins = this.usuario.betCoins;
     });
+    if (this.usuario.timeFavorito == null) {
+      this.imagem = "assets/imgs/interrogacao.png";
+    } else {
+      this.imagem = this.usuario.timeFavorito.logo;
+    }
   }
 
   SignOut() {
     this.storage.remove('user');
     this.navCtrl.setRoot(LoginPage);
   }
-  GoToApostadosPage(){
+  GoToApostadosPage() {
     this.navCtrl.push(TabsApostadosPage);
   }
 
