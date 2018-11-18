@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import { BetterNflService } from '../../services/betternfl.service';
 import { Storage } from '@ionic/storage';
+import { SettingsPage } from '../settings/settings';
 
 @IonicPage()
 @Component({
@@ -125,7 +126,10 @@ export class ApostaPage {
   }
 
   excluirAposta() {
-    // console.log(this.aposta.id_Aposta, this.idAposta);
+    let loading = this.loadingController.create({
+      content: 'Aguarde...'
+    });
+    loading.present();
     if (this.idAposta == 0 || this.idAposta == null) {
       let toast = this.toastController.create({
         message: 'Realize a aposta primeiro!',
@@ -135,20 +139,26 @@ export class ApostaPage {
         closeButtonText: 'X'
       });
       toast.present();
+      loading.dismiss();
     } else {
       this.betterNflService.excluirAposta(this.idAposta)
         .then((result: any) => {
           let toast = this.toastController.create({
-            message: 'FOI!',
+            message: 'Aposta excluída com sucesso!',
             duration: 3000,
             position: 'bottom',
             showCloseButton: true,
             closeButtonText: 'X'
           });
           toast.present();
-          this.storage.set('user', result);
+          console.log(result);
           this.usuario = result;
-          this.navCtrl.pop();
+          this.storage.set('user', result);
+          this.navCtrl.setRoot(SettingsPage);
+          this.navCtrl.push(SettingsPage, {
+            betCoins: this.usuario.betCoins
+          });
+          loading.dismiss();
         }).catch((error) => {
           console.log(error);
         });
@@ -182,9 +192,9 @@ export class ApostaPage {
         toast.present();
 
         loading.dismiss();
-        this.storage.set('user', result);
         this.usuario = result;
-        this.navCtrl.pop();
+        this.storage.set('user', this.usuario);
+        this.navCtrl.setRoot(SettingsPage);
       }).catch((error) => {
         console.log(error);
         loading.dismiss();
